@@ -103,7 +103,7 @@ export default function Testimonials() {
             id="testimonial-heading"
             className="md:text-7xl text-3xl uppercase font-francy absolute text-[#504B38] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-nowrap "
           >
-            Voices of Satisfaction
+            Testimonials
           </h1>
         </div>
       </div>
