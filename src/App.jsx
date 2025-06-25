@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 //components
-import Navbar from "./components/Navbar";
+// import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Lenis from "@studio-freight/lenis";
 import Contact from "./pages/Contact";
 import ContactModel from "./components/ContactModel";
 import Products from "./pages/Products";
 import { ImageProvider } from "./context/ImageContext";
-import Preloader from "./components/Preloader";
+// import Preloader from "./components/Preloader";
 import About from "./pages/About";
 import { Services } from "./pages/Services";
 

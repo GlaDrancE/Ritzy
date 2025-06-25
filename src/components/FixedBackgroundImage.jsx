@@ -1,7 +1,7 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import SplitType from "split-type";
-import React, { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import img1 from "../assets/images/slides/img1.jpg";
 import img2 from "../assets/images/slides/img2.jpg";
@@ -10,10 +10,20 @@ gsap.registerPlugin(ScrollTrigger);
 export default function FixedBackgroundImage() {
   const containerRef = useRef();
   const containerRef2 = useRef();
-  const sliderRef = useRef();
+  // const sliderRef = useRef();
 
   useGSAP(() => {
     const vpHeight = window.innerHeight;
+
+    // Cache DOM elements
+    const fixedImageInner = document.querySelector("#fixed-image-inner");
+    const headingElements = {
+      1: { words: [], hr: document.querySelector(".hr-1") },
+      2: { words: [], hr: document.querySelector(".hr-2") },
+      3: { words: [], hr: document.querySelector(".hr-3") },
+    };
+
+    // Initialize SplitType with better performance
     const splitHeading1 = new SplitType("#heading1 > h1, #heading1 > p", {
       type: "words",
     });
@@ -23,147 +33,152 @@ export default function FixedBackgroundImage() {
     const splitHeading3 = new SplitType("#heading3 > h1, #heading3 > p", {
       type: "words",
     });
-    splitHeading2.words.forEach((word) => {
-      word.style.opacity = 0;
-    });
-    splitHeading3.words.forEach((word) => {
-      word.style.opacity = 0;
-    });
+
+    // Store words for better performance
+    headingElements[1].words = splitHeading1.words;
+    headingElements[2].words = splitHeading2.words;
+    headingElements[3].words = splitHeading3.words;
+
+    // Set initial opacity using GSAP.set for better performance
+    gsap.set([splitHeading2.words, ".hr-2"], { opacity: 0 });
+    gsap.set([splitHeading3.words, ".hr-3"], { opacity: 0 });
+
     const enterText = new SplitType(".home-fixed-image1", { type: "words" })
       .chars;
+
+    // State management to prevent redundant animations
+    let currentSection = 1;
+    let isAnimating = false;
+
+    // Create a single timeline for section transitions
+    const sectionTimeline = gsap.timeline({ paused: true });
+
+    const animateToSection = (targetSection) => {
+      if (currentSection === targetSection || isAnimating) return;
+
+      isAnimating = true;
+
+      // Clear previous timeline
+      sectionTimeline.clear();
+
+      // Fade out current section
+      sectionTimeline.to(
+        [
+          headingElements[currentSection].words,
+          headingElements[currentSection].hr,
+        ],
+        {
+          opacity: 0,
+          duration: 0.15,
+          ease: "power2.out",
+        }
+      );
+
+      // Fade in target section
+      sectionTimeline.to(
+        [
+          headingElements[targetSection].words,
+          headingElements[targetSection].hr,
+        ],
+        {
+          opacity: 1,
+          duration: 0.2,
+          ease: "power2.out",
+          onComplete: () => {
+            currentSection = targetSection;
+            isAnimating = false;
+          },
+        }
+      );
+
+      sectionTimeline.play();
+    };
 
     ScrollTrigger.create({
       trigger: containerRef.current,
       start: `top ${vpHeight}`,
       end: `+=${vpHeight * 3}`,
-      // pin: true,
       scrub: true,
       onEnter: () => {
-        gsap.to(containerRef2.current, {
+        gsap.set(containerRef2.current, {
           position: "fixed",
-          duration: 0,
           zIndex: 1,
-        });
-        gsap.to(containerRef2.current, {
           scale: 1,
         });
-        // gsap.to("#fixed-image-inner", {
-        //   width: "98%",
-        //   height: "98%",
-        // });
       },
       onEnterBack: () => {
-        gsap.to(containerRef2.current, {
+        gsap.set(containerRef2.current, {
           position: "fixed",
-          duration: 0,
           zIndex: 1,
         });
       },
       onLeave: () => {
-        gsap.to(containerRef2.current, {
+        gsap.set(containerRef2.current, {
           position: "absolute",
-          duration: 0,
         });
       },
       onLeaveBack: () => {
-        gsap.to(containerRef2.current, {
+        gsap.set(containerRef2.current, {
           position: "absolute",
           scale: 0,
-          duration: 0,
         });
       },
       onUpdate: (self) => {
         const progress = self.progress * (3 * vpHeight);
-        document.querySelector("#fixed-image-inner").scrollTop = progress;
 
-        if (progress >= 900 && progress < 1500) {
-          gsap.to([splitHeading1.words, ".hr-1"], {
-            duration: 0.1,
-            opacity: 0,
-          });
-          gsap
-            .timeline()
-            .to([splitHeading3.words, ".hr-3"], {
-              duration: 0.1,
-              opacity: 0,
-            })
-            .to([splitHeading2.words, ".hr-2"], {
-              duration: 0.2,
-              opacity: 1,
-            });
-        }
-        if (progress > 1500) {
-          gsap.to([splitHeading1.words, ".hr-1"], {
-            opacity: 0,
-          });
-          gsap
-            .timeline()
-            .to([splitHeading2.words, ".hr-2"], {
-              duration: 0.1,
-              opacity: 0,
-            })
-            .to([splitHeading3.words, ".hr-3"], {
-              duration: 0.2,
-              opacity: 1,
-            });
-        }
+        // Use requestAnimationFrame for smoother scrolling
+        requestAnimationFrame(() => {
+          fixedImageInner.scrollTop = progress;
+        });
+
+        // Optimized section switching with cleaner thresholds
+        let targetSection;
         if (progress < 900) {
-          gsap.to([splitHeading2.words, ".hr-2"], {
-            opacity: 0,
-            duration: 0.1,
-          });
-          gsap.to([splitHeading3.words, ".hr-3"], {
-            opacity: 0,
-            duration: 0.1,
-          });
-          gsap.to([splitHeading1.words, ".hr-1"], {
-            opacity: 1,
-            duration: 0.2,
-          });
+          targetSection = 1;
+        } else if (progress < 1500) {
+          targetSection = 2;
+        } else {
+          targetSection = 3;
         }
+
+        animateToSection(targetSection);
       },
     });
 
-    gsap.to([".slider-1"], {
-      backgroundPositionY: "80%",
-      scrollTrigger: {
-        trigger: ".slider-1",
-        start: "top bottom",
-        bottom: "bottom top",
-        scrub: true,
-      },
-    });
-    gsap.to([".slider-2"], {
-      backgroundPositionY: "80%",
-      scrollTrigger: {
-        trigger: ".slider-2",
-        start: "top bottom",
-        bottom: "bottom top",
-        scrub: true,
-      },
-    });
-    gsap.to([".slider-3"], {
-      backgroundPositionY: "100%",
-      scrollTrigger: {
-        trigger: ".slider-3",
-        start: "top bottom",
-        bottom: "bottom top",
-        scrub: true,
-      },
+    // Optimize background position animations with a single batch
+    const sliders = [
+      { selector: ".slider-1", endY: "80%" },
+      { selector: ".slider-2", endY: "80%" },
+      { selector: ".slider-3", endY: "100%" },
+    ];
+
+    sliders.forEach(({ selector, endY }) => {
+      gsap.to(selector, {
+        backgroundPositionY: endY,
+        ease: "none",
+        scrollTrigger: {
+          trigger: selector,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1,
+        },
+      });
     });
 
+    // Optimize enter text animation
     gsap.fromTo(
       enterText,
       { opacity: 0.2 },
       {
         opacity: 0.7,
         duration: 1,
-        stagger: 0.1,
+        stagger: 0.05, // Reduced stagger for smoother animation
+        ease: "power2.out",
         scrollTrigger: {
           trigger: ".home-fixed-image1",
           start: "top bottom",
-          end: "bottom 75%",
-          scrub: true,
+          end: "bottom center",
+          scrub: 1,
         },
       }
     );

@@ -1,15 +1,15 @@
 import { useGSAP } from "@gsap/react";
-import React, { useEffect, useRef } from "react";
+import { useRef } from "react";
 import img1 from "../assets/imageGrid/1.jpg";
 import img2 from "../assets/imageGrid/2.jpg";
 import img3 from "../assets/imageGrid/3.jpg";
 import img4 from "../assets/imageGrid/4.jpg";
-import img5 from "../assets/imageGrid/5.jpg";
-import img6 from "../assets/imageGrid/6.jpg";
-import img7 from "../assets/imageGrid/7.jpg";
+// import img5 from "../assets/imageGrid/5.jpg";
+// import img6 from "../assets/imageGrid/6.jpg";
+// import img7 from "../assets/imageGrid/7.jpg";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
-import Testimonials from "./Testimonials";
+// import Testimonials from "./Testimonials";
 import { Link } from "react-router-dom";
 gsap.registerPlugin(ScrollTrigger);
 export default function ProductsGrid() {
@@ -92,7 +92,7 @@ export default function ProductsGrid() {
       .set(".gridText", { display: "none" }); // Using set instead of to for instant changes
 
     // Loop through images to reduce code repetition
-    ["img1", "img2", "img3", "img4"].forEach((img, index) => {
+    ["img1", "img2", "img3", "img4"].forEach((img) => {
       const selector = `.${img}`;
 
       // Add animations for each image
@@ -125,7 +125,7 @@ export default function ProductsGrid() {
               id="grid-hero-section-content-inner"
               className="grid-hero-section-content-inner flex items-center justify-center relative text-white w-full h-full "
             >
-              <h1 className="gridText opacity-0 text-5xl font-uber-move uppercase text-center">
+              <h1 className="gridText opacity-0   uppercase text-center md:text-7xl text-5xl font-francy">
                 Glimps of our works
               </h1>
               {imagesData.map((img, index) => (

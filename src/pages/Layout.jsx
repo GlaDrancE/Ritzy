@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import Preloader from "../components/Preloader";
-import { useImages } from "../context/ImageContext";
+import { useEffect, useState } from "react";
+// import Preloader from "../components/Preloader";
+// import { useImages } from "../context/ImageContext";
 import gsap from "gsap";
 
 export default function Layout({ children }) {
@@ -48,7 +48,7 @@ export default function Layout({ children }) {
   // return <>{!allImagesLoaded || isLoading ? <Preloader /> : children}</>;
   return (
     <>
-      {isLoading && <Preloader />}
+      {/* {isLoading && <Preloader />} */}
       {children}
     </>
   );

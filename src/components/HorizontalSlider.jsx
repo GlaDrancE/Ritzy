@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "tailwindcss/tailwind.css";
@@ -16,7 +16,7 @@ const HorizontalSlider = () => {
   const horizontalBannerRef = useRef(null);
 
   useGSAP(() => {
-    const vpHeight = window.innerHeight;
+    // const vpHeight = window.innerHeight;
     const container = containerRef.current;
     const slider = sliderRef.current;
     const horizontalBannerText = new SplitType(horizontalBannerRef.current, {

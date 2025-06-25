@@ -1,11 +1,5 @@
-import React, {
-  Suspense,
-  useEffect,
-  useRef,
-  useState,
-  useCallback,
-} from "react";
-import HeroModel from "./HeroModel";
+import { useEffect, useRef, useState, useCallback } from "react";
+// import HeroModel from "./HeroModel";
 import { Link } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";

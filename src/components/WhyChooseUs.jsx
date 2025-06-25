@@ -1,7 +1,7 @@
 // Video by Tima Miroshnichenko: https://www.pexels.com/video/woman-using-digital-tablet-6474153/
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import React, { useRef } from "react";
+import { useRef } from "react";
 import SplitType from "split-type";
 import slide1 from "../assets/videos/choose-us/slide1.mp4";
 import slide2 from "../assets/videos/choose-us/slide2.mp4";
@@ -9,7 +9,7 @@ import slide3 from "../assets/videos/choose-us/slide3.mp4";
 
 export default function WhyChooseUs() {
   const containerRef = useRef();
-  const vpHeight = window.innerHeight;
+  // const vpHeight = window.innerHeight;
   const headingContainer = useRef();
   useGSAP(() => {
     // Cache selectors and configurations
@@ -134,10 +134,10 @@ export default function WhyChooseUs() {
   return (
     <section className="relative h-[calc(5000px-200vh)]">
       <div
-        className="w-screen h-screen secondary-bg text-[#65625a] flex items-center justify-center top-[-100vh] text-4xl font-francy absolute z-50 text-center"
+        className="w-screen h-screen secondary-bg text-[#65625a] flex items-center justify-center top-[-100vh] font-francy absolute z-50 text-center md:text-7xl text-5xl"
         ref={headingContainer}
       >
-        <h1>Why Choose Us?</h1>
+        <h1>Why Us?</h1>
       </div>
       <section
         className="absolute overflow-hidden top-[-300vh] flex justify-center tertiary-bg z-20 w-screen h-screen"
@@ -148,8 +148,8 @@ export default function WhyChooseUs() {
             className="relative w-[calc(100vw-2rem)] h-[calc(100vh-2rem)] rounded-2xl overflow-hidden m-auto md:mr-4"
             id="choose-us-card"
           >
-            <div className="relative grid md:grid-cols-3 grid-cols-1 gap-1 w-full h-full">
-              <div className="h-full w-full rounded-2xl relative text-black morph-glass bg-slate-50 md:px-4 !px-0 text-center z-[9999]">
+            <div className="relative grid  grid-cols-1 gap-1 w-full h-full">
+              <div className="h-full  rounded-2xl absolute text-black morph-glass w-1/4 md:px-4 !px-0 text-center z-[9999]">
                 <div className="relative w-full h-full">
                   <div
                     id="choose-us-text-0"

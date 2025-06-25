@@ -26,7 +26,7 @@ export default function Footer({ className }) {
         <div className="w-full h-full">
           <div className="flex flex-col justify-center md:p-12">
             <div className="w-24 h-24 mb-12">
-              <img src={logo} className="w-full h-full invert" alt="" />
+              <img src={logo} className="w-full h-full " alt="" />
             </div>
             <div className="footer-logo-heading font-maxima-nouva text-4xl">
               Ritzy

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Navbar from "../components/Navbar";
 import { TextLinesReveal, TextRevealOpacity } from "../components/TextReveal";
@@ -62,11 +62,11 @@ const ServicesComponent = () => {
   const [section, setSection] = useState("");
 
   const [sliderCurrent, setSliderCurrent] = useState(1);
-  const [isRedisInit, setRedisInit] = useState(false);
-  const [isOfficeInit, setOfficeInit] = useState(false);
+  // const [isRedisInit, setRedisInit] = useState(false);
+  // const [isOfficeInit, setOfficeInit] = useState(false);
 
   const sliderCurrentRef = useRef(0);
-  const sliderSpeed = 3000;
+  // const sliderSpeed = 3000;
 
   const residenceProducts = [
     {
@@ -197,11 +197,11 @@ const ServicesComponent = () => {
       const rect = containerRef.current.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-      const x2 = (e.clientX - rect.left) / rect.width;
-      const y2 = (e.clientY - rect.top) / rect.height;
+      // const x2 = (e.clientX - rect.left) / rect.width;
+      // const y2 = (e.clientY - rect.top) / rect.height;
 
-      const moveX = (x2 - 0.5) * 50; // Adjust multiplier to increase or decrease movement
-      const moveY = (y2 - 0.5) * 50;
+      // const moveX = (x2 - 0.5) * 50; // Adjust multiplier to increase or decrease movement
+      // const moveY = (y2 - 0.5) * 50;
       gsap.to(buttonRef.current, {
         x: x - buttonRef.current.clientWidth / 2 + 10,
         y: y - buttonRef.current.clientHeight / 2 - 30,
@@ -397,7 +397,7 @@ const ServicesComponent = () => {
       };
 
       initializeResidenceAnimations();
-      setRedisInit(true);
+      // setRedisInit(true);
     }
 
     if (section === "office") {
@@ -433,14 +433,14 @@ const ServicesComponent = () => {
         );
       });
 
-      setOfficeInit(true);
+      // setOfficeInit(true);
     }
 
     // Cleanup
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-      setRedisInit(false);
-      setOfficeInit(false);
+      // setRedisInit(false);
+      // setOfficeInit(false);
     };
   }, [section, sectionReveal, createScrollConfig]);
 
@@ -525,7 +525,7 @@ const ServicesComponent = () => {
 
   const changeNext = (sliderItem1, sliderItem2) => {
     if (!residenceSlider.current) return;
-    const length = residenceServices.length;
+    // const length = residenceServices.length;
     const totalGap =
       sliderItem2.getBoundingClientRect().left -
       sliderItem1.getBoundingClientRect().left;
@@ -553,12 +553,12 @@ const ServicesComponent = () => {
   };
   const changePrev = (sliderItem1, sliderItem2) => {
     if (!residenceSlider.current) return;
-    const length = residenceServices.length;
+    // const length = residenceServices.length;
     const totalGap =
       sliderItem2.getBoundingClientRect().left -
       sliderItem1.getBoundingClientRect().left;
 
-    const sliderOffset = residenceSlider.current.getBoundingClientRect();
+    // const sliderOffset = residenceSlider.current.getBoundingClientRect();
 
     const maxScroll =
       residenceSlider.current.scrollWidth - residenceSlider.current.clientWidth;
@@ -566,9 +566,9 @@ const ServicesComponent = () => {
       left: residenceSlider.current.scrollLeft - totalGap,
       behaviour: "smooth",
     });
-    const totalVisibleSlides = Math.round(
-      sliderOffset.width / sliderItem1.getBoundingClientRect().width + 1
-    );
+    // const totalVisibleSlides = Math.round(
+    //   sliderOffset.width / sliderItem1.getBoundingClientRect().width + 1
+    // );
 
     setSliderCurrent((prev) => prev - 1);
 
@@ -735,6 +735,7 @@ const ServicesComponent = () => {
           {residenceServices.map((service, index) => (
             <section
               className={`dark-green-bg top-0 h-screen min-w-screen w-screen  will-change-transform absolute residence-sections`}
+              key={index}
               style={{ zIndex: service.z }}
               ref={service.ref}
             >
@@ -779,7 +780,10 @@ const ServicesComponent = () => {
                 className="flex space-between scroll-smooth overflow-hidden gap-10 w-full select-none"
               >
                 {residenceProducts.map((services) => (
-                  <div className="w-full h-96 min-w-60 min-h-96 rounded-3xl flex items-end relative overflow-hidden justify-end group residence-item">
+                  <div
+                    key={services.title}
+                    className="w-full h-96 min-w-60 min-h-96 rounded-3xl flex items-end relative overflow-hidden justify-end group residence-item"
+                  >
                     <img
                       src={services.img}
                       className="w-full h-full absolute top-0 left-0 object-cover"

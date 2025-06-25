@@ -1,6 +1,6 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import SplitType from "split-type";
 import profile from "../assets/profile.jpg";
 import StarIcon from "../Icons/StarIcon";
@@ -161,7 +161,7 @@ export default function Testimonials() {
                   index === current ? "w-[calc(50%/4)]" : "w-[calc(15%/4)]"
                 } cursor-pointer mx-1 bg-white rounded-full`}
                 style={{ transition: "all .4s" }}
-                onClick={(e) => {
+                onClick={() => {
                   handleSlideChange(index);
                 }}
               ></div>
