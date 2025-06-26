@@ -58,10 +58,8 @@ export default function FixedBackgroundImage() {
 
       isAnimating = true;
 
-      // Clear previous timeline
       sectionTimeline.clear();
 
-      // Fade out current section
       sectionTimeline.to(
         [
           headingElements[currentSection].words,
@@ -133,9 +131,9 @@ export default function FixedBackgroundImage() {
 
         // Optimized section switching with cleaner thresholds
         let targetSection;
-        if (progress < 900) {
+        if (progress < window.innerHeight) {
           targetSection = 1;
-        } else if (progress < 1500) {
+        } else if (progress < window.innerHeight * 2) {
           targetSection = 2;
         } else {
           targetSection = 3;
@@ -176,13 +174,13 @@ export default function FixedBackgroundImage() {
         ease: "power2.out",
         scrollTrigger: {
           trigger: ".home-fixed-image1",
-          start: "top bottom",
-          end: "bottom center",
+          start: "top 50%",
+          end: "bottom 100%",
           scrub: 1,
         },
       }
     );
-  });
+  }, []);
 
   return (
     <>

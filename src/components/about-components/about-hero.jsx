@@ -48,8 +48,6 @@ export const AboutHero = () => {
   }, []);
   useEffect(() => {
     const handleMouse = (e) => {
-      console.log(e);
-
       const rect = containerRef.current.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width;
       const y = (e.clientY - rect.top) / rect.height;

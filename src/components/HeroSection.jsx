@@ -36,7 +36,6 @@ export default function HeroSection() {
     };
   }, []);
   const render = useCallback((image) => {
-    console.log(image);
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -331,30 +330,21 @@ export default function HeroSection() {
                 ></h1>
               </div>
             ))}
-
-            <button
-              className="scene-text-4"
-              style={{
-                transform: `${`translate3d(-50%,-50%,-300px)`}`,
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                textAlign: "center",
-                transformStyle: "preserve-3d",
-                border: "1px solid rgb(255, 255, 255)",
-                background: "rgb(255, 255, 255)",
-                color: "rgb(0, 0, 0)",
-                padding: "0.6rem 1rem",
-                textShadow: "none",
-                borderRadius: "4rem",
-                height: " 2.5rem",
-
-                fontFamily: "francy, Arial, Helvetica, sans-serif",
-                opacity: 0,
-              }}
+            <Link
+              to={"/contact"}
+              className="scene-text-4 px-4 py-2 bg-white rounded-full block opacity-0 font-francy"
             >
-              <Link to={"/contact"}>Get Started Today</Link>
-            </button>
+              <button
+                className=" text-black"
+                style={{
+                  transform: ``,
+                  transformStyle: "preserve-3d",
+                  textShadow: "none",
+                }}
+              >
+                Get Started Today
+              </button>
+            </Link>
           </div>
         </div>
         <div className="hero-canvas">

@@ -6,29 +6,113 @@ import FixedBackgroundImage from "../components/FixedBackgroundImage";
 import HorizontalSlider from "../components/HorizontalSlider";
 import ProductsGrid from "../components/ProductsGrid";
 import Testimonials from "../components/Testimonials";
+import MobileTesti from "../components/MobileTesti";
 import WhyChooseUs from "../components/WhyChooseUs";
 import CTA from "../components/CTA";
 import Footer from "../components/Footer";
 import MobileBenifits from "../components/MobileBenifits";
 import MobileHorizontal from "../components/MobileHorizontal";
-import MobileTesti from "../components/MobileTesti";
 import MobileProductGrid from "../components/MobileProductGrid";
 import MobileWhyChooseUs from "../components/MobileWhyChooseUs";
 import { useImages } from "../context/ImageContext";
+// import { useGSAP } from "@gsap/react";
+// import { ScrollToPlugin, ScrollTrigger } from "gsap/all";
+// import gsap from "gsap";
+// import { useEffect } from "react";
 
 function HomePage() {
+  // gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+  // useEffect(() => {
+  //   const sections = document.querySelectorAll(".home-panel");
+  //   const outerWrappers = gsap.utils.toArray(".outer");
+  //   const innerWrappers = gsap.utils.toArray(".inner");
+  //   const goToSection = (index, direction) => {
+  //     if (!sections[index]) return;
+  //     // gsap.to(window, {
+  //     //   scrollTo: {
+  //     //     y: sections[index].offsetTop,
+  //     //     offsetY: 0,
+  //     //     duration: 1,
+  //     //   },
+  //     // });
+
+  //     // console.log(outerWrappers[index]);
+  //     // gsap.to([outerWrappers[index], innerWrappers[index]], {
+  //     //   yPercent: sections[index].offsetTop,
+  //     //   duration: 1,
+  //     //   ease: "power2.inOut",
+  //     // });
+  //     // console.log(sections[index].offsetTop);
+  //     // console.log(window.scrollHeight);
+  //   };
+  //   ScrollTrigger.create({
+  //     trigger: sections[1],
+  //     start: "top 90%",
+  //     end: "bottom 10%",
+  //     markers: true,
+  //     onEnter: () => {
+  //       goToSection(1, 1);
+  //       console.log("Enter hero section");
+  //     },
+  //     onEnterBack: () => {
+  //       console.log("Enter back section");
+  //     },
+  //   });
+  //   goToSection(1, 1);
+  // }, []);
   return (
-    <div className="home-container   overflow-hidden relative">
+    <>
       <HeroSection />
-      {/* <CoreServices /> */}
-      {window.innerWidth >= 600 ? <FixedBackgroundImage /> : <MobileBenifits />}
-      {window.innerWidth >= 600 ? <HorizontalSlider /> : <MobileHorizontal />}
-      {window.innerWidth >= 600 ? <ProductsGrid /> : <MobileProductGrid />}
-      {window.innerWidth >= 600 ? <Testimonials /> : <MobileTesti />}
+      <div className="home-panel">
+        <div className="outer">
+          <div className="inner">
+            {window.innerWidth >= 600 ? (
+              <FixedBackgroundImage />
+            ) : (
+              <MobileBenifits />
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="home-panel">
+        <div className="outer">
+          <div className="inner">
+            {window.innerWidth >= 600 ? (
+              <HorizontalSlider />
+            ) : (
+              <MobileHorizontal />
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="home-panel">
+        <div className="outer">
+          <div className="inner">
+            {window.innerWidth >= 600 ? (
+              <ProductsGrid />
+            ) : (
+              <MobileProductGrid />
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="home-panel">
+        <div className="outer">
+          <div className="inner">
+            {window.innerWidth >= 600 ? <Testimonials /> : <MobileTesti />}
+          </div>
+        </div>
+      </div>
       {window.innerWidth >= 600 ? <WhyChooseUs /> : <MobileWhyChooseUs />}
-      <CTA />
-      <Footer className="tertiary-bg text-[#504B38]" />
-    </div>
+      <div className="home-panel">
+        <div className="outer">
+          <div className="inner">
+            <CTA />
+            <Footer className="tertiary-bg text-[#504B38]" />
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
 export default function Home() {

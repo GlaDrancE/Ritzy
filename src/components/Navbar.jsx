@@ -165,9 +165,11 @@ export default function Navbar(props) {
           >
             <img src={logo} className="w-8 h-8" alt="" />
           </Link>
-          <button className="border-2 hover:bg-black hover:text-white transition-all duration-750 border-black px-4 py-2 text-[12px] rounded-full font-maxima-nouva-thin">
-            Get Started
-          </button>
+          <Link to={"/contact"}>
+            <button className="border-2 hover:bg-black hover:text-white transition-all duration-750 border-black px-4 py-2 text-[12px] rounded-full font-maxima-nouva-thin">
+              Get Started
+            </button>
+          </Link>
         </div>
       </nav>
     </>

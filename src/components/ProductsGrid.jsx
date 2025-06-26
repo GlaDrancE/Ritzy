@@ -32,7 +32,7 @@ export default function ProductsGrid() {
       height: 40,
       x: 50,
       y: -30,
-      z: -200,
+      z: -4000,
     },
     {
       src: img3,
@@ -41,7 +41,7 @@ export default function ProductsGrid() {
       height: 40,
       x: -80,
       y: -10,
-      z: -300,
+      z: -8000,
     },
     {
       src: img4,
@@ -50,7 +50,7 @@ export default function ProductsGrid() {
       height: 40,
       x: 100,
       y: 0,
-      z: -400,
+      z: -12000,
     },
   ];
   useGSAP(() => {
@@ -61,17 +61,6 @@ export default function ProductsGrid() {
       opacity: 1,
       display: "block",
       duration: 0.3,
-    };
-
-    const fadeOutConfig = {
-      opacity: 0,
-      display: "none",
-      duration: 0.3,
-    };
-
-    const zeroZConfig = {
-      z: 0,
-      duration: 0.5,
     };
 
     // Create the timeline with ScrollTrigger
@@ -85,21 +74,85 @@ export default function ProductsGrid() {
       },
     });
 
+    // Get all image selectors for simultaneous animation
+    const allImageSelectors = [".img1", ".img2", ".img3", ".img4"];
+
     // Initial text animation
     timeline
       .to(".gridText", { opacity: 1, duration: 0.1 })
       .to(".gridText", { opacity: 0, duration: 0.1 })
       .set(".gridText", { display: "none" }); // Using set instead of to for instant changes
 
-    // Loop through images to reduce code repetition
-    ["img1", "img2", "img3", "img4"].forEach((img) => {
-      const selector = `.${img}`;
+    // PHASE 1: All images fade in with stagger
+    timeline.to(
+      allImageSelectors,
+      {
+        ...fadeInConfig,
+        stagger: 0.3, // Staggered fade in
+      },
+      "-=1.25"
+    );
 
-      // Add animations for each image
-      timeline
-        .to(selector, fadeInConfig)
-        .to(selector, zeroZConfig, "<") // "<" makes it start at the same time as previous animation
-        .to(selector, fadeOutConfig);
+    // PHASE 2: Images move forward sequentially based on distance (closest first)
+
+    // img1 (z: -1000) - shortest distance, arrives first
+    timeline.to(".img1", {
+      z: 0,
+      duration: 0.8,
+      ease: "power2.out",
+    });
+    // img1 fades away with opacity after arriving
+    timeline.to(".img1", {
+      opacity: 0,
+      duration: 0.5,
+    });
+
+    // img2 (z: -4000) - medium distance, arrives second
+    timeline.to(
+      ".img2",
+      {
+        z: 0,
+        duration: 1.2, // Longer duration as it travels more distance
+        ease: "power2.out",
+      },
+      "-=1.25"
+    ); // Start before img1 fully fades
+    // img2 fades away with opacity after arriving
+    timeline.to(".img2", {
+      opacity: 0,
+      duration: 0.5,
+    });
+
+    // img3 (z: -8000) - longer distance, arrives third
+    timeline.to(
+      ".img3",
+      {
+        z: 0,
+        duration: 1.6, // Even longer duration for more distance
+        ease: "power2.out",
+      },
+      "-=1.25"
+    );
+    // img3 fades away with opacity after arriving
+    timeline.to(".img3", {
+      opacity: 0,
+      duration: 0.5,
+    });
+
+    // img4 (z: -12000) - longest distance, arrives last
+    timeline.to(
+      ".img4",
+      {
+        z: 0,
+        duration: 2.0, // Longest duration for furthest distance
+        ease: "power2.out",
+      },
+      "-=1.25"
+    );
+    // img4 fades away with opacity after arriving
+    timeline.to(".img4", {
+      opacity: 0,
+      duration: 0.5,
     });
 
     // Final container animation
@@ -135,7 +188,7 @@ export default function ProductsGrid() {
                   style={{
                     transform: `${`translate3d(${img.x}%,${img.y}%,${img.z}px)`}`,
                     position: "absolute",
-                    display: "none",
+                    opacity: 0,
                     width: `${img.width}vw`,
                     height: `${img.height}vw`,
                     borderRadius: "2rem",

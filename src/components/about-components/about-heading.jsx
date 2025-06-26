@@ -20,7 +20,7 @@ export const AboutHeading = () => {
           automation industry, Ritzy has become synonymous with innovation,
           convenience, and unparalleled expertise.`}
           containerRef={containerRef}
-          start={"top 75%"}
+          start={"top 90%"}
         />
       </div>
     </section>

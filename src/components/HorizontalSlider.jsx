@@ -35,8 +35,8 @@ const HorizontalSlider = () => {
         stagger: 0.1,
         scrollTrigger: {
           trigger: "#horizontalBanner",
-          start: "top 25%",
-          end: "bottom 75%",
+          start: "top 50%",
+          end: "bottom 100%",
           scrub: true,
           onEnter: () => {
             gsap.to(container, {

@@ -24,7 +24,7 @@ const AnimateText = ({ text, containerRef, start = "top top" }) => {
       { y: -100 },
       {
         y: 0,
-        duration: 1,
+        duration: 0.2,
         stagger: 0.01,
         scrollTrigger: {
           trigger: containerRef.current,

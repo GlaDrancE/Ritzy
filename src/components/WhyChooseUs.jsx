@@ -140,7 +140,7 @@ export default function WhyChooseUs() {
         <h1>Why Us?</h1>
       </div>
       <section
-        className="absolute overflow-hidden top-[-300vh] flex justify-center tertiary-bg z-20 w-screen h-screen"
+        className="absolute overflow-hidden top-[-200vh] flex justify-center tertiary-bg z-20 w-screen h-screen"
         ref={containerRef}
       >
         <div className="flex flex-col items-center justify-center z[99999]">

@@ -1,23 +1,23 @@
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import React, { useRef } from "react";
+// import { useGSAP } from "@gsap/react";
+// import { useRef } from "react";
+import { HashLink } from "react-router-hash-link";
 import logo from "../assets/logo.webp";
 import { Link } from "react-router-dom";
 export default function Footer({ className }) {
-  const footerRef = useRef(null);
-  useGSAP(() => {
-    const footer = footerRef.current;
-    // const timeline = gsap.timeline({
-    //   scrollTrigger: {
-    //     trigger: footer,
-    //     start: "top top",
-    //     end: "bottom top",
-    //     pin: true,
-    //     scrub: true,
-    //     pinSpacing: false,
-    //   },
-    // });
-  });
+  // const footerRef = useRef(null);
+  // useGSAP(() => {
+  //   const footer = footerRef.current;
+  // const timeline = gsap.timeline({
+  //   scrollTrigger: {
+  //     trigger: footer,
+  //     start: "top top",
+  //     end: "bottom top",
+  //     pin: true,
+  //     scrub: true,
+  //     pinSpacing: false,
+  //   },
+  // });
+  // });
   return (
     <footer
       className={`w-full md:relative md:mt-0 mt-12 bottom-0 left-0 text-white p-4 ${className}`}
@@ -38,13 +38,13 @@ export default function Footer({ className }) {
             <div className="flex md:justify-end w-full">
               <ul className={`footer-links`}>
                 <li>
-                  <Link to={"/about"}>About</Link>
+                  <HashLink to={"/about#about"}>About</HashLink>
                 </li>
                 <li>
                   <Link to={"/services"}>Services</Link>
                 </li>
                 <li>
-                  <Link to={"/"}>How we work?</Link>
+                  <Link to={"/contact"}>Contact</Link>
                 </li>
                 <li>
                   <Link to={"/"}>Our Work</Link>
