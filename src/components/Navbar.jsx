@@ -2,8 +2,9 @@ import { useState } from "react";
 import logo from "../assets/logo.webp";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
+import PropTypes from "prop-types";
 
-export default function Navbar(props) {
+export default function Navbar({ home = false, ...props }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   function handleMobileMenu() {
@@ -161,7 +162,9 @@ export default function Navbar(props) {
           </div>
           <Link
             to={"/"}
-            className="text-3xl font-bold absolute left-1/2 -translate-x-1/2 invert"
+            className={`text-3xl font-bold absolute left-1/2 -translate-x-1/2 ${
+              home ? "invert" : "0"
+            }`}
           >
             <img src={logo} className="w-8 h-8" alt="" />
           </Link>
@@ -175,3 +178,7 @@ export default function Navbar(props) {
     </>
   );
 }
+
+Navbar.propTypes = {
+  home: PropTypes.bool,
+};

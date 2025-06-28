@@ -2,7 +2,12 @@ import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import SplitType from "split-type";
 
-const AnimateText = ({ text, containerRef, start = "top top" }) => {
+const AnimateText = ({
+  text,
+  containerRef,
+  start = "top top",
+  end = "bottom top",
+}) => {
   const textRef = useRef(null);
 
   useEffect(() => {
@@ -29,7 +34,7 @@ const AnimateText = ({ text, containerRef, start = "top top" }) => {
         scrollTrigger: {
           trigger: containerRef.current,
           start: start,
-          end: "bottom top",
+          end: end,
           toggleActions: "play play reverse reverse",
         },
       }

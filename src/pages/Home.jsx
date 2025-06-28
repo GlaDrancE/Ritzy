@@ -120,6 +120,7 @@ export default function Home() {
   return (
     <Layout>
       <Navbar
+        home={true}
         style={{
           position: "absolute",
           zIndex: "9999",

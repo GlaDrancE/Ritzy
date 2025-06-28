@@ -8,7 +8,7 @@ import women from "../../assets/images/about/women.jpeg";
 const AboutTeam = () => {
   const containerRef = useRef(null);
   useGSAP(() => {
-    const t1 = gsap.timeline({
+    gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
         start: "top top",
@@ -18,7 +18,7 @@ const AboutTeam = () => {
     });
   }, []);
   return (
-    <section className="relative w-full">
+    <section className="relative w-full pt-12">
       <div className="h-[100vh] w-full -mt-[100vh]" ref={containerRef}>
         <div className="h-screen w-full relative bottom-0">
           <div className="h-screen w-full relative">
@@ -38,6 +38,7 @@ const AboutTeam = () => {
                         text={"Deepa Jayaraman"}
                         containerRef={containerRef}
                         start="bottom bottom"
+                        end={"bottom 50%"}
                       />
                     </h1>
                     <h1 className="pl-4 text-nowrap text-2xl font-uber-move font-bold">
@@ -45,6 +46,7 @@ const AboutTeam = () => {
                         text={"Founder"}
                         containerRef={containerRef}
                         start="bottom bottom"
+                        end={"bottom 50%"}
                       />
                     </h1>
                   </div>
@@ -54,15 +56,24 @@ const AboutTeam = () => {
                     text={`Our team, led by Deepa Jayaraman and supported by key member Anil, is dedicated to delivering world-class automation solutions. From the initial consultation to ongoing support, we work closely with our clients to ensure their homes are future-ready. Together, we bring expertise, dedication, and a passion for pushing the boundaries of smart home technology.`}
                     containerRef={containerRef}
                     start={"bottom bottom"}
+                    end={"bottom 50%"}
                   />
                 </div>
                 <div className="w-full relative px-2 h-full flex items-center">
                   <div className="w-0 absolute -left-20 top-[30%]">
                     <h1 className="pr-4 text-nowrap text-5xl font-uber-move font-bold">
-                      <AnimateText text={"Anil"} containerRef={containerRef} />
+                      <AnimateText
+                        text={"Anil"}
+                        containerRef={containerRef}
+                        end={"bottom 50%"}
+                      />
                     </h1>
                     <h1 className="pr-4 text-nowrap text-2xl font-uber-move font-bold">
-                      <AnimateText text={"Team"} containerRef={containerRef} />
+                      <AnimateText
+                        text={"Team"}
+                        containerRef={containerRef}
+                        end={"bottom 50%"}
+                      />
                     </h1>
                   </div>
                   <div className="h-2/3 min-w-full">

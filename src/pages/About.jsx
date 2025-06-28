@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { AboutHero } from "../components/about-components/about-hero";
 import { AboutHeading } from "../components/about-components/about-heading";
 import Layout from "./Layout";
 import Navbar from "../components/Navbar";
 import AboutMission from "../components/about-components/about-mission";
 import AboutTeam from "../components/about-components/about-team";
-import AboutChooseUs from "../components/about-components/about-choose-us";
+// import AboutChooseUs from "../components/about-components/about-choose-us";
 import Footer from "../components/Footer";
 import "locomotive-scroll/dist/locomotive-scroll.css";
 import LocomotiveScroll from "locomotive-scroll";
@@ -111,7 +111,6 @@ export default function About() {
           zIndex: "9999",
           color: "black",
           background: "linear-gradient(180deg, #bababa, transparent)",
-          filter: "invert(1)",
         }}
       />
       <AboutPage />
