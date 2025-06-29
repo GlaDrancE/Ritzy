@@ -1,223 +1,249 @@
-import React, { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
+import { useState, useRef, useEffect } from "react";
+import Navbar from "../components/Navbar";
 
-const Products = () => {
-  const officeRef = useRef(null);
-  const residentialRef = useRef(null);
-  const transitionRef = useRef(null);
-  const [activePage, setActivePage] = useState("main");
-  const [transitioning, setTransitioning] = useState(false);
+export const Products = () => {
+  const [hoveredProduct, setHoveredProduct] = useState(1); // Start with first product expanded
+  const [isScrolling, setIsScrolling] = useState(false);
+  const scrollContainerRef = useRef(null);
+  const scrollIntervalRef = useRef(null);
 
+  // Import product images
+  const hvacImg = new URL("../assets/images/products/hvac.jpg", import.meta.url)
+    .href;
+  const avEquipmentImg = new URL(
+    "../assets/images/products/av-equipments.png",
+    import.meta.url
+  ).href;
+
+  const smartLockImg = new URL(
+    "../assets/images/products/smart-lock.jpg",
+    import.meta.url
+  ).href;
+  const multiroomAVImg = new URL(
+    "../assets/images/products/multiroom-av.jpg",
+    import.meta.url
+  ).href;
+  const smartLightsImg = new URL(
+    "../assets/images/products/smart-lights.png",
+    import.meta.url
+  ).href;
+  const securityImg = new URL(
+    "../assets/images/products/security.jpg",
+    import.meta.url
+  ).href;
+
+  const products = [
+    {
+      id: 1,
+      name: "HVAC SYSTEMS",
+      category: "Climate Control",
+      background: hvacImg,
+      color: "#ff6b6b",
+    },
+    {
+      id: 2,
+      name: "AV EQUIPMENT",
+      category: "Audio Visual",
+      background: avEquipmentImg,
+      color: "#4ecdc4",
+    },
+    {
+      id: 3,
+      name: "SECURITY SYSTEMS",
+      category: "Home Security",
+      background: securityImg,
+      color: "#45b7d1",
+    },
+    {
+      id: 4,
+      name: "SMART LIGHTING",
+      category: "Automation",
+      background: smartLightsImg,
+      color: "#f9ca24",
+    },
+    {
+      id: 5,
+      name: "MULTIROOM AV",
+      category: "Entertainment",
+      background: multiroomAVImg,
+      color: "#6c5ce7",
+    },
+    {
+      id: 6,
+      name: "SMART LOCKS",
+      category: "Access Control",
+      background: smartLockImg,
+      color: "#ff9ff3",
+    },
+  ];
+
+  // Auto scroll functions
+  const startScrolling = (direction) => {
+    if (scrollIntervalRef.current) return;
+
+    setIsScrolling(true);
+    scrollIntervalRef.current = setInterval(() => {
+      if (scrollContainerRef.current) {
+        const scrollAmount = direction === "left" ? -5 : 5;
+        scrollContainerRef.current.scrollLeft += scrollAmount;
+      }
+    }, 16); // ~60fps
+  };
+
+  const stopScrolling = () => {
+    if (scrollIntervalRef.current) {
+      clearInterval(scrollIntervalRef.current);
+      scrollIntervalRef.current = null;
+    }
+    setIsScrolling(false);
+  };
+
+  // Cleanup on unmount
   useEffect(() => {
-    gsap.set([officeRef.current, residentialRef.current], {
-      width: "50%",
-    });
+    return () => {
+      if (scrollIntervalRef.current) {
+        clearInterval(scrollIntervalRef.current);
+      }
+    };
   }, []);
 
-  const handleMouseEnter = (section) => {
-    if (transitioning) return;
-
-    if (section === "office") {
-      gsap.to(officeRef.current, {
-        width: "75%",
-        duration: 0.5,
-        ease: "power2.out",
-      });
-      gsap.to(residentialRef.current, {
-        width: "25%",
-        duration: 0.5,
-        ease: "power2.out",
-      });
-    } else {
-      gsap.to(residentialRef.current, {
-        width: "75%",
-        duration: 0.5,
-        ease: "power2.out",
-      });
-      gsap.to(officeRef.current, {
-        width: "25%",
-        duration: 0.5,
-        ease: "power2.out",
-      });
-    }
-  };
-
-  const handleMouseLeave = () => {
-    if (transitioning) return;
-
-    gsap.to([officeRef.current, residentialRef.current], {
-      width: "50%",
-      duration: 0.5,
-      ease: "power2.out",
-    });
-  };
-
-  const handleSectionClick = async (section) => {
-    if (transitioning) return;
-    setTransitioning(true);
-
-    const clickedRef = section === "office" ? officeRef : residentialRef;
-    const bounds = clickedRef.current.getBoundingClientRect();
-
-    // Set initial position of transition overlay
-    gsap.set(transitionRef.current, {
-      x: bounds.x,
-      y: bounds.y,
-      width: bounds.width,
-      height: bounds.height,
-      backgroundColor: section === "office" ? "#111827" : "#1e3a8a",
-      display: "block",
-    });
-
-    // Timeline for zoom transition
-    const tl = gsap.timeline();
-
-    // First zoom out slightly
-    await tl
-      .to(clickedRef.current, {
-        scale: 0.9,
-        duration: 0.3,
-        ease: "power2.inOut",
-      })
-      // Then expand overlay to full screen
-      .to(transitionRef.current, {
-        x: 0,
-        y: 0,
-        width: "100%",
-        height: "100%",
-        duration: 0.5,
-        ease: "power2.inOut",
-      })
-      .call(() => {
-        setActivePage(section);
-        setTransitioning(false);
-      });
-  };
-
-  const handleBack = async () => {
-    if (transitioning) return;
-    setTransitioning(true);
-
-    const tl = gsap.timeline();
-
-    await tl
-      .to(transitionRef.current, {
-        scale: 0.9,
-        duration: 0.3,
-        ease: "power2.inOut",
-      })
-      .to(transitionRef.current, {
-        scale: 1,
-        x: "100%",
-        duration: 0.5,
-        ease: "power2.inOut",
-      })
-      .call(() => {
-        setActivePage("main");
-        setTransitioning(false);
-        gsap.set(transitionRef.current, { display: "none", x: 0, scale: 1 });
-      });
-  };
-
-  if (activePage === "office") {
-    return (
-      <div className="min-h-screen bg-gray-900 text-white p-8">
-        <button
-          onClick={handleBack}
-          className="mb-8 px-4 py-2 bg-gray-800 rounded hover:bg-gray-700 transition-colors"
-        >
-          Back to Main
-        </button>
-        <h1 className="text-4xl font-bold mb-6">Office Space Details</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="space-y-4">
-            <h2 className="text-2xl font-semibold">Features</h2>
-            <p>Modern workspace with state-of-the-art amenities</p>
-            <p>24/7 access and security</p>
-            <p>High-speed internet and meeting rooms</p>
-          </div>
-          <div className="space-y-4">
-            <h2 className="text-2xl font-semibold">Location</h2>
-            <p>Prime downtown location</p>
-            <p>Easy access to public transport</p>
-            <p>Nearby restaurants and cafes</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (activePage === "residential") {
-    return (
-      <div className="min-h-screen bg-blue-900 text-white p-8">
-        <button
-          onClick={handleBack}
-          className="mb-8 px-4 py-2 bg-blue-800 rounded hover:bg-blue-700 transition-colors"
-        >
-          Back to Main
-        </button>
-        <h1 className="text-4xl font-bold mb-6">Residential Properties</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="space-y-4">
-            <h2 className="text-2xl font-semibold">Amenities</h2>
-            <p>Luxury finishes and modern appliances</p>
-            <p>Swimming pool and fitness center</p>
-            <p>24/7 concierge service</p>
-          </div>
-          <div className="space-y-4">
-            <h2 className="text-2xl font-semibold">Community</h2>
-            <p>Peaceful neighborhood</p>
-            <p>Community events and spaces</p>
-            <p>Parks and recreation nearby</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="relative h-screen w-full overflow-hidden">
-      <div
-        ref={officeRef}
-        className="relative h-full bg-gray-900 transition-all cursor-pointer"
-        onMouseEnter={() => handleMouseEnter("office")}
-        onMouseLeave={handleMouseLeave}
-        onClick={() => handleSectionClick("office")}
-      >
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center">
-            <h2 className="text-4xl font-bold text-white mb-4">Office</h2>
-            <p className="text-gray-300 px-8">
-              Click to explore our premium office spaces.
-            </p>
+    <>
+      <Navbar />
+      <div className="w-full min-h-screen bg-black text-white pt-24 md:pt-32 px-4 md:px-8">
+        {/* Header Section */}
+        <div className="mb-12 md:mb-16">
+          <h1 className="text-4xl md:text-6xl font-maxima-nouva-thin text-gray-300 mb-4">
+            EXPLORE OUR
+          </h1>
+          <h2 className="text-4xl md:text-6xl font-maxima-nouva-bold text-white italic">
+            PRESTIGIOUS PRODUCTS
+          </h2>
+        </div>
+
+        {/* Products Slider */}
+        <div className="relative">
+          {/* Left Scroll Zone */}
+          <div
+            className="absolute left-0 top-0 w-16 h-full z-20 cursor-pointer"
+            onMouseEnter={() => startScrolling("left")}
+            onMouseLeave={stopScrolling}
+          >
+            <div className="w-full h-full bg-gradient-to-r from-black/20 to-transparent flex items-center justify-start pl-2">
+              <div
+                className={`text-white/60 text-2xl transition-opacity duration-300 ${
+                  isScrolling ? "opacity-100" : "opacity-0 hover:opacity-80"
+                }`}
+              >
+                &#8249;
+              </div>
+            </div>
+          </div>
+
+          {/* Right Scroll Zone */}
+          <div
+            className="absolute right-0 top-0 w-16 h-full z-20 cursor-pointer"
+            onMouseEnter={() => startScrolling("right")}
+            onMouseLeave={stopScrolling}
+          >
+            <div className="w-full h-full bg-gradient-to-l from-black/20 to-transparent flex items-center justify-end pr-2">
+              <div
+                className={`text-white/60 text-2xl transition-opacity duration-300 ${
+                  isScrolling ? "opacity-100" : "opacity-0 hover:opacity-80"
+                }`}
+              >
+                &#8250;
+              </div>
+            </div>
+          </div>
+
+          {/* Products Container */}
+          <div
+            ref={scrollContainerRef}
+            className="flex gap-3 md:gap-4 h-[400px] md:h-[500px] overflow-x-auto overflow-y-hidden scrollbar-hide pb-4"
+            style={{
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+              scrollBehavior: "smooth",
+            }}
+          >
+            {products.map((product) => (
+              <div
+                key={product.id}
+                className={`group relative transition-all duration-700 ease-out cursor-pointer overflow-hidden rounded-lg 
+                flex-shrink-0 w-[120px] md:w-[160px]
+                hover:w-[400px] md:hover:w-[500px]
+                ${
+                  hoveredProduct === product.id ? "w-[350px] md:w-[500px]" : ""
+                }`}
+                style={{
+                  backgroundImage: `url(${product.background})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  backgroundRepeat: "no-repeat",
+                }}
+                onMouseEnter={() => setHoveredProduct(product.id)}
+              >
+                {/* Overlay */}
+                <div
+                  className="absolute inset-0 transition-all duration-700 backdrop-blur-[1px]"
+                  style={{
+                    background: `linear-gradient(135deg, ${product.color}66, ${product.color}33)`,
+                  }}
+                >
+                  {/* Content */}
+                  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6">
+                    {/* Product Name - Always Visible */}
+                    <h3
+                      className={`font-uber-move-bold text-white mb-2 transition-all duration-700
+                      ${
+                        hoveredProduct === product.id
+                          ? "text-2xl md:text-3xl opacity-100"
+                          : "text-lg md:text-xl opacity-90 transform -rotate-90 origin-bottom-left absolute bottom-4 left-4 whitespace-nowrap"
+                      }`}
+                      style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.8)" }}
+                    >
+                      {product.name}
+                    </h3>
+
+                    {/* Product Details - Show on Hover */}
+                    <div
+                      className={`transition-all duration-700 delay-200
+                      ${
+                        hoveredProduct === product.id
+                          ? "opacity-100 translate-y-0"
+                          : "opacity-0 translate-y-4"
+                      }`}
+                    >
+                      <p
+                        className="text-white/90 text-base md:text-lg mb-4 font-maxima-nouva"
+                        style={{ textShadow: "1px 1px 2px rgba(0, 0, 0, 0.8)" }}
+                      >
+                        {product.category}
+                      </p>
+
+                      <div className="flex gap-3">
+                        <button className="bg-white/20 text-white border border-white/50 px-4 py-2 rounded-lg font-medium cursor-pointer transition-all duration-300 backdrop-blur-md text-sm hover:bg-white hover:text-black">
+                          View Details
+                        </button>
+                        <button className="bg-white text-black px-4 py-2 rounded-lg font-medium cursor-pointer transition-all duration-300 text-sm hover:bg-gray-200">
+                          Learn More
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Gradient Overlay for Better Text Readability */}
+                  <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
 
-      <div
-        ref={residentialRef}
-        className="relative h-full bg-blue-900 transition-all cursor-pointer"
-        onMouseEnter={() => handleMouseEnter("residential")}
-        onMouseLeave={handleMouseLeave}
-        onClick={() => handleSectionClick("residential")}
-      >
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center">
-            <h2 className="text-4xl font-bold text-white mb-4">Residential</h2>
-            <p className="text-gray-300 px-8">
-              Click to discover our residential properties.
-            </p>
-          </div>
-        </div>
+        {/* Bottom Space */}
+        <div className="h-16 md:h-20"></div>
       </div>
-
-      {/* Transition overlay */}
-      <div
-        ref={transitionRef}
-        className="fixed top-0 left-0 hidden pointer-events-none"
-      />
-    </div>
+    </>
   );
 };
-
-export default Products;
