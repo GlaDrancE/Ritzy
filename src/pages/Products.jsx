@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import Navbar from "../components/Navbar";
 
-export const Products = () => {
+const Products = () => {
   const [hoveredProduct, setHoveredProduct] = useState(1); // Start with first product expanded
   const [isScrolling, setIsScrolling] = useState(false);
   const scrollContainerRef = useRef(null);
@@ -247,3 +247,5 @@ export const Products = () => {
     </>
   );
 };
+
+export default Products;
