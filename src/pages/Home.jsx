@@ -108,7 +108,7 @@ function HomePage() {
         <div className="outer">
           <div className="inner">
             <CTA />
-            <Footer className="tertiary-bg text-[#504B38]" />
+            <Footer className="animated-gradient-bg text-white" />
           </div>
         </div>
       </div>

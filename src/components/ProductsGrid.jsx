@@ -22,7 +22,7 @@ export default function ProductsGrid() {
       width: 40,
       height: 40,
       x: -100,
-      y: -40,
+      y: -60,
       z: -1000,
     },
     {
@@ -30,9 +30,9 @@ export default function ProductsGrid() {
       class: "img2",
       width: 40,
       height: 40,
-      x: 50,
-      y: -30,
-      z: -4000,
+      x: 60,
+      y: 60,
+      z: -2000,
     },
     {
       src: img3,
@@ -41,16 +41,16 @@ export default function ProductsGrid() {
       height: 40,
       x: -80,
       y: -10,
-      z: -8000,
+      z: -3000,
     },
     {
       src: img4,
       class: "img4",
       width: 40,
       height: 40,
-      x: 100,
-      y: 0,
-      z: -12000,
+      x: 120,
+      y: -70,
+      z: -4000,
     },
   ];
   useGSAP(() => {
@@ -88,7 +88,7 @@ export default function ProductsGrid() {
       allImageSelectors,
       {
         ...fadeInConfig,
-        stagger: 0.3, // Staggered fade in
+        // stagger: 0.3, // Staggered fade in
       },
       "-=1.25"
     );
@@ -168,7 +168,7 @@ export default function ProductsGrid() {
       <section className="relative w-screen h-screen" ref={containerRef}>
         <div
           id="grid-hero-section-inner"
-          className="grid-hero-section-inner secondary-bg z-[999999999999] w-screen h-screen"
+          className="grid-hero-section-inner z-[999999999999] w-screen h-screen animated-gradient-bg"
         >
           <div
             id="grid-hero-section-content"
@@ -179,7 +179,7 @@ export default function ProductsGrid() {
               className="grid-hero-section-content-inner flex items-center justify-center relative text-white w-full h-full "
             >
               <h1 className="gridText opacity-0   uppercase text-center md:text-7xl text-5xl font-francy">
-                Glimps of our works
+                Our Works
               </h1>
               {imagesData.map((img, index) => (
                 <div

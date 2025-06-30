@@ -308,6 +308,17 @@ p.scene-text .scene-text-inner {
   height: 2.5rem;
   transform-origin: center;
 }
+
+.animated-gradient-bg {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: background 0.2s ease-out;
+}
+
 /* 
 button.scene-text {
   transform: translate3d(50%, 50%, -1500px);

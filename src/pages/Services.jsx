@@ -72,7 +72,7 @@ export const Services = () => {
   ];
 
   return (
-    <>
+    <div className="animated-gradient-bg">
       <Navbar />
       <div className="w-full min-h-screen overflow-hidden secondary-bg">
         <div className="flex flex-col h-full overflow-hidden min-h-[calc(100vh-7rem)] md:min-h-full">
@@ -95,7 +95,7 @@ export const Services = () => {
               onMouseEnter={() => setHoveredSection(service.id)}
               onClick={() => handleServiceClick(service.id)}
             >
-              <div className="absolute inset-0 flex items-end justify-center transition-all duration-700 backdrop-blur-[2px]">
+              <div className="absolute inset-0 flex items-end justify-center transition-all duration-700 ">
                 <div className=" text-white z-10 p-4 md:p-8 w-full">
                   <h2
                     className={`text-5xl md:text-4xl  mb-4 transition-all duration-700 whitespace-nowrap font-maxima-nouva-thin
@@ -123,7 +123,7 @@ export const Services = () => {
           ))}
         </div>
       </div>
-      <Footer className=" text-[#504B38]" />
-    </>
+      <Footer className="bg-transparent text-white" />
+    </div>
   );
 };

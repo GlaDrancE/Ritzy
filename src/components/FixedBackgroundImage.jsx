@@ -185,7 +185,7 @@ export default function FixedBackgroundImage() {
   return (
     <>
       <section className="relative">
-        <div className="home-fixed-image1 md:text-5xl text-3xl flex flex-col justify-center z-[99999] relative !h-[120vh]  text-[#65625a]">
+        <div className="home-fixed-image1 md:text-5xl text-3xl flex flex-col justify-center z-[99999] relative !h-[120vh]  text-white animated-gradient-bg">
           <h1 style={{ letterSpacing: "2px" }}>
             Features & Benefits for Customers
           </h1>

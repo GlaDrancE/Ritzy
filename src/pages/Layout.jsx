@@ -47,9 +47,9 @@ export default function Layout({ children }) {
 
   // return <>{!allImagesLoaded || isLoading ? <Preloader /> : children}</>;
   return (
-    <>
+    <div className="animated-gradient-bg">
       {/* {isLoading && <Preloader />} */}
       {children}
-    </>
+    </div>
   );
 }

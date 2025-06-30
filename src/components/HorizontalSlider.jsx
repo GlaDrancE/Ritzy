@@ -96,11 +96,11 @@ const HorizontalSlider = () => {
   });
 
   return (
-    <section className="relative">
+    <section className="relative animated-gradient-bg">
       <div
         ref={horizontalBannerRef}
         id="horizontalBanner"
-        className="w-screen h-screen primary-bg text-[#a39b8b] flex justify-center items-center md:text-7xl text-5xl font-francy text-center"
+        className="w-screen h-screen flex justify-center items-center md:text-7xl text-5xl font-francy text-center text-white"
       >
         How it works
       </div>
@@ -109,7 +109,7 @@ const HorizontalSlider = () => {
         className="overflow-hidden m-auto flex items-center justify-center relative z-50"
       >
         <div
-          className="relative w-screen h-screen primary-bg overflow-hidden"
+          className="relative w-screen h-screen  overflow-hidden"
           id="horizontal-slider-container"
         >
           <div
@@ -218,7 +218,7 @@ const HorizontalSlider = () => {
           </div>
         </div>
       </div> */}
-        <div className="cover-banner w-screen opacity-0 h-screen absolute primary-bg left-0 top-0 z-[999]"></div>
+        <div className="cover-banner w-screen opacity-0 h-screen absolute left-0 top-0 z-[999]"></div>
       </div>
     </section>
   );

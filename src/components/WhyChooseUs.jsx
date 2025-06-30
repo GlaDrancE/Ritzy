@@ -134,7 +134,7 @@ export default function WhyChooseUs() {
   return (
     <section className="relative h-[calc(5000px-200vh)]">
       <div
-        className="w-screen h-screen secondary-bg text-[#65625a] flex items-center justify-center top-[-100vh] font-francy absolute z-50 text-center md:text-7xl text-5xl"
+        className="w-screen h-screen animated-gradient-bg text-white flex items-center justify-center top-[-100vh] font-francy absolute z-50 text-center md:text-7xl text-5xl"
         ref={headingContainer}
       >
         <h1>Why Us?</h1>

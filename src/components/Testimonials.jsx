@@ -95,13 +95,13 @@ export default function Testimonials() {
     >
       <div className="absolute w-screen h-screen top-0 left-0">
         <div
-          className=" h-screen secondary-bg flex flex-col items-center justify-center"
+          className=" h-screen animated-gradient-bg text-white  flex flex-col items-center justify-center"
           id="testimonial-inner"
           style={{ perspective: "1000px", transformStyle: "preserve-3d" }}
         >
           <h1
             id="testimonial-heading"
-            className="md:text-7xl text-3xl uppercase font-francy absolute text-[#504B38] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-nowrap "
+            className="md:text-7xl text-3xl uppercase font-francy absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-nowrap "
           >
             Testimonials
           </h1>

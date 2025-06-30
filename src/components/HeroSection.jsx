@@ -290,6 +290,7 @@ export default function HeroSection() {
         margin: "auto",
         zIndex: "99",
         position: "relative",
+        background: `url("/frames/1.webp")`,
       }}
       ref={containerRef}
     >

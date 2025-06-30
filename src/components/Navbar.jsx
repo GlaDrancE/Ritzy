@@ -34,7 +34,7 @@ export default function Navbar({ home = false, ...props }) {
   }
   return (
     <>
-      <nav className="w-screen" {...props}>
+      <nav className="w-screen invert" {...props}>
         <div className="w-[77%]  py-6 mx-auto flex justify-between items-center">
           <div
             className=" font-maxima-nouva-thin !font-thin text-[1rem] cursor-pointer"
@@ -47,7 +47,7 @@ export default function Navbar({ home = false, ...props }) {
               style={{ transform: "translateX(-100%)" }}
             >
               <div className="flex w-full justify-between items-center p-6">
-                <Link to={"/"} className="text-3xl font-bold">
+                <Link to={"/"} className="text-3xl font-bold invert">
                   <img src={logo} className="h-8" alt="" />
                 </Link>
                 <button
@@ -162,9 +162,7 @@ export default function Navbar({ home = false, ...props }) {
           </div>
           <Link
             to={"/"}
-            className={`text-3xl font-bold absolute left-1/2 -translate-x-1/2 ${
-              home ? "invert" : "0"
-            }`}
+            className={`text-3xl font-bold absolute left-1/2 -translate-x-1/2 invert`}
           >
             <img src={logo} className="w-8 h-8" alt="" />
           </Link>
