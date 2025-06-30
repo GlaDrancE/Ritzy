@@ -12,6 +12,7 @@ import { ImageProvider } from "./context/ImageContext";
 // import Preloader from "./components/Preloader";
 import About from "./pages/About";
 import { Services } from "./pages/Services";
+import Product from "./pages/Product";
 
 function App() {
   useEffect(() => {
@@ -37,6 +38,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/contact-model" element={<ContactModel />} />
             <Route path="/products" element={<Products />} />
+            <Route path="/product" element={<Product />} />
             <Route path="/services" element={<Services />} />
             <Route path="/about" element={<About />} />
           </Routes>

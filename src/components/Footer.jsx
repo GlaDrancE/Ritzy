@@ -35,7 +35,7 @@ export default function Footer({ className }) {
         </div>
         <div className="col-span-3 md:p-12">
           <div className="grid md:grid-cols-2 ">
-            <div className="flex md:justify-end w-full">
+            <div className="flex md:justify-end w-full ">
               <ul className={`footer-links`}>
                 <li>
                   <HashLink to={"/about#about"}>About</HashLink>

@@ -11,7 +11,7 @@ export const Services = () => {
     navigate(`/products?service=${serviceId}`);
   };
 
-  // Import images
+  // Import service images
   const homeAutomationImg = new URL(
     "../assets/images/residence-services/living-room.jpg",
     import.meta.url
@@ -74,7 +74,7 @@ export const Services = () => {
   return (
     <>
       <Navbar />
-      <div className="w-full min-h-screen overflow-hidden primary-bg">
+      <div className="w-full min-h-screen overflow-hidden secondary-bg">
         <div className="flex flex-col h-full overflow-hidden min-h-[calc(100vh-7rem)] md:min-h-full">
           {services.map((service) => (
             <div
@@ -123,7 +123,7 @@ export const Services = () => {
           ))}
         </div>
       </div>
-      <Footer />
+      <Footer className=" text-[#504B38]" />
     </>
   );
 };

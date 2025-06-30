@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Products = () => {
   const [hoveredProduct, setHoveredProduct] = useState(1); // Start with first product expanded
@@ -42,6 +43,50 @@ const Products = () => {
     import.meta.url
   ).href;
 
+  // Import service images for backgrounds
+  const livingRoomImg = new URL(
+    "../assets/images/residence-services/living-room.jpg",
+    import.meta.url
+  ).href;
+  const homeTheaterImg = new URL(
+    "../assets/images/residence-services/home-theater.jpg",
+    import.meta.url
+  ).href;
+  const lightingsImg = new URL(
+    "../assets/images/residence-services/lightings.jpg",
+    import.meta.url
+  ).href;
+  const residenceImg = new URL(
+    "../assets/images/residence-services/residence.jpg",
+    import.meta.url
+  ).href;
+  const gardningImg = new URL(
+    "../assets/images/residence-services/gardning.jpg",
+    import.meta.url
+  ).href;
+  const residenceSecurityImg = new URL(
+    "../assets/images/residence-services/security.jpg",
+    import.meta.url
+  ).href;
+
+  // Import office images
+  const officeImg = new URL(
+    "../assets/images/office/office.jpg",
+    import.meta.url
+  ).href;
+  const officeHvacImg = new URL(
+    "../assets/images/office/hvac.png",
+    import.meta.url
+  ).href;
+  const parkingImg = new URL(
+    "../assets/images/office/parking.png",
+    import.meta.url
+  ).href;
+  const vc1Img = new URL("../assets/images/office/vc-1.png", import.meta.url)
+    .href;
+  const vc2Img = new URL("../assets/images/office/vc-2.png", import.meta.url)
+    .href;
+
   // Product sets for different services
   const productSets = {
     1: [
@@ -69,9 +114,9 @@ const Products = () => {
       },
       {
         id: 4,
-        name: "Security System",
-        category: "Home Security",
-        background: securityImg,
+        name: "Living Room Integration",
+        category: "Home Automation",
+        background: livingRoomImg,
         color: "#4ecdc4",
       },
       {
@@ -86,9 +131,9 @@ const Products = () => {
       // HOME THEATERS
       {
         id: 1,
-        name: "Premium AV Equipment",
-        category: "Audio Visual",
-        background: avEquipmentImg,
+        name: "Home Theater Setup",
+        category: "Premium Theater",
+        background: homeTheaterImg,
         color: "#6c5ce7",
       },
       {
@@ -100,23 +145,23 @@ const Products = () => {
       },
       {
         id: 3,
-        name: "Smart Lighting Control",
-        category: "Ambient Lighting",
-        background: smartLightsImg,
+        name: "Premium AV Equipment",
+        category: "Audio Visual",
+        background: avEquipmentImg,
         color: "#6c5ce7",
       },
       {
         id: 4,
-        name: "HVAC Integration",
-        category: "Climate Control",
-        background: hvacImg,
+        name: "Lighting Control",
+        category: "Ambient Lighting",
+        background: lightingsImg,
         color: "#6c5ce7",
       },
       {
         id: 5,
         name: "Security Integration",
         category: "Theater Security",
-        background: securityImg,
+        background: residenceSecurityImg,
         color: "#6c5ce7",
       },
     ],
@@ -138,23 +183,23 @@ const Products = () => {
       },
       {
         id: 3,
-        name: "Smart TV Integration",
-        category: "Display Solutions",
-        background: smartLightsImg,
+        name: "Residence Integration",
+        category: "Whole Home",
+        background: residenceImg,
         color: "#45b7d1",
       },
       {
         id: 4,
-        name: "Ambient Lighting",
-        category: "Scene Control",
-        background: sensorLightsImg,
+        name: "Security Integration",
+        category: "Home Security",
+        background: securityImg,
         color: "#45b7d1",
       },
       {
         id: 5,
-        name: "Remote Control Hub",
-        category: "Universal Control",
-        background: smartLockImg,
+        name: "Security System",
+        category: "Home Protection",
+        background: burglarAlarmImg,
         color: "#45b7d1",
       },
     ],
@@ -162,37 +207,37 @@ const Products = () => {
       // COMMERCIAL
       {
         id: 1,
-        name: "Commercial HVAC",
-        category: "Building Climate",
-        background: hvacImg,
+        name: "Office Solutions",
+        category: "Commercial Space",
+        background: officeImg,
         color: "#ff6b6b",
       },
       {
         id: 2,
-        name: "Security Solutions",
-        category: "Commercial Security",
-        background: securityImg,
+        name: "Commercial HVAC",
+        category: "Building Climate",
+        background: officeHvacImg,
         color: "#ff6b6b",
       },
       {
         id: 3,
-        name: "Burglar Alarm System",
-        category: "Intrusion Detection",
-        background: burglarAlarmImg,
+        name: "Video Conferencing",
+        category: "Meeting Rooms",
+        background: vc1Img,
         color: "#ff6b6b",
       },
       {
         id: 4,
-        name: "Access Control",
-        category: "Building Access",
-        background: smartLockImg,
+        name: "Advanced VC Systems",
+        category: "Collaboration",
+        background: vc2Img,
         color: "#ff6b6b",
       },
       {
         id: 5,
-        name: "Commercial AV",
-        category: "Presentation Systems",
-        background: avEquipmentImg,
+        name: "Parking Solutions",
+        category: "Building Management",
+        background: parkingImg,
         color: "#ff6b6b",
       },
     ],
@@ -207,9 +252,9 @@ const Products = () => {
       },
       {
         id: 2,
-        name: "Lighting Integration",
-        category: "Window Lighting",
-        background: sensorLightsImg,
+        name: "Garden Integration",
+        category: "Outdoor Control",
+        background: gardningImg,
         color: "#f9ca24",
       },
       {
@@ -221,9 +266,9 @@ const Products = () => {
       },
       {
         id: 4,
-        name: "Daylight Sensors",
-        category: "Light Management",
-        background: securityImg,
+        name: "Smart Lock Control",
+        category: "Access Management",
+        background: smartLockImg,
         color: "#f9ca24",
       },
       {
@@ -379,16 +424,19 @@ const Products = () => {
                 }}
                 onMouseEnter={() => setHoveredProduct(product.id)}
               >
-                {/* Overlay */}
-                <div
-                  className="absolute inset-0 transition-all duration-700 backdrop-blur-[1px]"
-                  style={{
-                    background: `linear-gradient(135deg, ${product.color}66, ${product.color}33)`,
-                  }}
-                >
-                  {/* Gradient Overlay for Better Text Readability */}
-                  <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
-                </div>
+                <Link to={`/product?product=${product.id}`}>
+                  {/* Overlay */}
+                  <div
+                    className="absolute inset-0 transition-all duration-700 backdrop-blur-[1px]"
+                    style={{
+                      background: `linear-gradient(135deg, ${product.color}66, ${product.color}33)`,
+                    }}
+                  >
+                    {/* Content */}
+                    {/* Gradient Overlay for Better Text Readability */}
+                    <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
+                  </div>
+                </Link>
               </div>
             ))}
           </div>
