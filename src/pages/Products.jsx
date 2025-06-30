@@ -1,11 +1,14 @@
 import { useState, useRef, useEffect } from "react";
 import Navbar from "../components/Navbar";
+import { useSearchParams } from "react-router-dom";
 
 const Products = () => {
   const [hoveredProduct, setHoveredProduct] = useState(1); // Start with first product expanded
   const [isScrolling, setIsScrolling] = useState(false);
   const scrollContainerRef = useRef(null);
   const scrollIntervalRef = useRef(null);
+  const [searchParams] = useSearchParams();
+  const serviceId = parseInt(searchParams.get("service")) || 1;
 
   // Import product images
   const hvacImg = new URL("../assets/images/products/hvac.jpg", import.meta.url)
@@ -14,7 +17,6 @@ const Products = () => {
     "../assets/images/products/av-equipments.png",
     import.meta.url
   ).href;
-
   const smartLockImg = new URL(
     "../assets/images/products/smart-lock.jpg",
     import.meta.url
@@ -31,63 +33,249 @@ const Products = () => {
     "../assets/images/products/security.jpg",
     import.meta.url
   ).href;
+  const burglarAlarmImg = new URL(
+    "../assets/images/products/burglar-alarm.jpg",
+    import.meta.url
+  ).href;
+  const sensorLightsImg = new URL(
+    "../assets/images/products/sensor-lights.jpg",
+    import.meta.url
+  ).href;
 
-  const products = [
-    {
-      id: 1,
-      name: "HVAC SYSTEMS",
-      category: "Climate Control",
-      background: hvacImg,
-      color: "#ff6b6b",
-    },
-    {
-      id: 2,
-      name: "AV EQUIPMENT",
-      category: "Audio Visual",
-      background: avEquipmentImg,
-      color: "#4ecdc4",
-    },
-    {
-      id: 3,
-      name: "SECURITY SYSTEMS",
-      category: "Home Security",
-      background: securityImg,
-      color: "#45b7d1",
-    },
-    {
-      id: 4,
-      name: "SMART LIGHTING",
-      category: "Automation",
-      background: smartLightsImg,
-      color: "#f9ca24",
-    },
-    {
-      id: 5,
-      name: "MULTIROOM AV",
-      category: "Entertainment",
-      background: multiroomAVImg,
-      color: "#6c5ce7",
-    },
-    {
-      id: 6,
-      name: "SMART LOCKS",
-      category: "Access Control",
-      background: smartLockImg,
-      color: "#ff9ff3",
-    },
-  ];
+  // Product sets for different services
+  const productSets = {
+    1: [
+      // HOME AUTOMATION
+      {
+        id: 1,
+        name: "Smart Lighting Control",
+        category: "Lighting Automation",
+        background: smartLightsImg,
+        color: "#4ecdc4",
+      },
+      {
+        id: 2,
+        name: "HVAC Control System",
+        category: "Climate Control",
+        background: hvacImg,
+        color: "#4ecdc4",
+      },
+      {
+        id: 3,
+        name: "Smart Lock System",
+        category: "Access Control",
+        background: smartLockImg,
+        color: "#4ecdc4",
+      },
+      {
+        id: 4,
+        name: "Security System",
+        category: "Home Security",
+        background: securityImg,
+        color: "#4ecdc4",
+      },
+      {
+        id: 5,
+        name: "Sensor Lighting",
+        category: "Motion Detection",
+        background: sensorLightsImg,
+        color: "#4ecdc4",
+      },
+    ],
+    2: [
+      // HOME THEATERS
+      {
+        id: 1,
+        name: "Premium AV Equipment",
+        category: "Audio Visual",
+        background: avEquipmentImg,
+        color: "#6c5ce7",
+      },
+      {
+        id: 2,
+        name: "Multiroom AV System",
+        category: "Distributed Audio",
+        background: multiroomAVImg,
+        color: "#6c5ce7",
+      },
+      {
+        id: 3,
+        name: "Smart Lighting Control",
+        category: "Ambient Lighting",
+        background: smartLightsImg,
+        color: "#6c5ce7",
+      },
+      {
+        id: 4,
+        name: "HVAC Integration",
+        category: "Climate Control",
+        background: hvacImg,
+        color: "#6c5ce7",
+      },
+      {
+        id: 5,
+        name: "Security Integration",
+        category: "Theater Security",
+        background: securityImg,
+        color: "#6c5ce7",
+      },
+    ],
+    3: [
+      // LIVING ROOM AV
+      {
+        id: 1,
+        name: "AV Equipment Suite",
+        category: "Entertainment System",
+        background: avEquipmentImg,
+        color: "#45b7d1",
+      },
+      {
+        id: 2,
+        name: "Multiroom Audio",
+        category: "Distributed Sound",
+        background: multiroomAVImg,
+        color: "#45b7d1",
+      },
+      {
+        id: 3,
+        name: "Smart TV Integration",
+        category: "Display Solutions",
+        background: smartLightsImg,
+        color: "#45b7d1",
+      },
+      {
+        id: 4,
+        name: "Ambient Lighting",
+        category: "Scene Control",
+        background: sensorLightsImg,
+        color: "#45b7d1",
+      },
+      {
+        id: 5,
+        name: "Remote Control Hub",
+        category: "Universal Control",
+        background: smartLockImg,
+        color: "#45b7d1",
+      },
+    ],
+    4: [
+      // COMMERCIAL
+      {
+        id: 1,
+        name: "Commercial HVAC",
+        category: "Building Climate",
+        background: hvacImg,
+        color: "#ff6b6b",
+      },
+      {
+        id: 2,
+        name: "Security Solutions",
+        category: "Commercial Security",
+        background: securityImg,
+        color: "#ff6b6b",
+      },
+      {
+        id: 3,
+        name: "Burglar Alarm System",
+        category: "Intrusion Detection",
+        background: burglarAlarmImg,
+        color: "#ff6b6b",
+      },
+      {
+        id: 4,
+        name: "Access Control",
+        category: "Building Access",
+        background: smartLockImg,
+        color: "#ff6b6b",
+      },
+      {
+        id: 5,
+        name: "Commercial AV",
+        category: "Presentation Systems",
+        background: avEquipmentImg,
+        color: "#ff6b6b",
+      },
+    ],
+    5: [
+      // FENESTRATIONS
+      {
+        id: 1,
+        name: "Smart Window Control",
+        category: "Automated Blinds",
+        background: smartLightsImg,
+        color: "#f9ca24",
+      },
+      {
+        id: 2,
+        name: "Lighting Integration",
+        category: "Window Lighting",
+        background: sensorLightsImg,
+        color: "#f9ca24",
+      },
+      {
+        id: 3,
+        name: "Motorized Curtains",
+        category: "Window Treatments",
+        background: multiroomAVImg,
+        color: "#f9ca24",
+      },
+      {
+        id: 4,
+        name: "Daylight Sensors",
+        category: "Light Management",
+        background: securityImg,
+        color: "#f9ca24",
+      },
+      {
+        id: 5,
+        name: "Climate Integration",
+        category: "Energy Efficiency",
+        background: hvacImg,
+        color: "#f9ca24",
+      },
+    ],
+  };
+
+  const products = productSets[serviceId] || productSets[1];
+
+  // Get service title for display
+  const serviceTitles = {
+    1: "HOME AUTOMATION",
+    2: "HOME THEATERS",
+    3: "LIVING ROOM AV",
+    4: "COMMERCIAL",
+    5: "FENESTRATIONS",
+  };
+
+  const serviceTitle = serviceTitles[serviceId] || "HOME AUTOMATION";
 
   // Auto scroll functions
+  const scrollToSlide = (direction) => {
+    if (scrollContainerRef.current) {
+      const container = scrollContainerRef.current;
+      const slideWidth = container.clientWidth * 0.4; // Approximate width of one expanded slide
+      const currentScroll = container.scrollLeft;
+      const targetScroll =
+        direction === "left"
+          ? currentScroll - slideWidth
+          : currentScroll + slideWidth;
+
+      container.scrollTo({
+        left: Math.max(0, targetScroll),
+        behavior: "smooth",
+      });
+    }
+  };
+
   const startScrolling = (direction) => {
     if (scrollIntervalRef.current) return;
 
     setIsScrolling(true);
+    scrollToSlide(direction);
+
     scrollIntervalRef.current = setInterval(() => {
-      if (scrollContainerRef.current) {
-        const scrollAmount = direction === "left" ? -5 : 5;
-        scrollContainerRef.current.scrollLeft += scrollAmount;
-      }
-    }, 16); // ~60fps
+      scrollToSlide(direction);
+    }, 800); // Scroll every 800ms when hovering
   };
 
   const stopScrolling = () => {
@@ -96,6 +284,11 @@ const Products = () => {
       scrollIntervalRef.current = null;
     }
     setIsScrolling(false);
+  };
+
+  const handleScrollClick = (direction) => {
+    stopScrolling(); // Stop any current scrolling
+    scrollToSlide(direction);
   };
 
   // Cleanup on unmount
@@ -117,7 +310,7 @@ const Products = () => {
             EXPLORE OUR
           </h1>
           <h2 className="text-4xl md:text-6xl font-maxima-nouva-bold text-white italic">
-            PRESTIGIOUS PRODUCTS
+            {serviceTitle} PRODUCTS
           </h2>
         </div>
 
@@ -128,6 +321,7 @@ const Products = () => {
             className="absolute left-0 top-0 w-16 h-full z-20 cursor-pointer"
             onMouseEnter={() => startScrolling("left")}
             onMouseLeave={stopScrolling}
+            onClick={() => handleScrollClick("left")}
           >
             <div className="w-full h-full bg-gradient-to-r from-black/20 to-transparent flex items-center justify-start pl-2">
               <div
@@ -145,6 +339,7 @@ const Products = () => {
             className="absolute right-0 top-0 w-16 h-full z-20 cursor-pointer"
             onMouseEnter={() => startScrolling("right")}
             onMouseLeave={stopScrolling}
+            onClick={() => handleScrollClick("right")}
           >
             <div className="w-full h-full bg-gradient-to-l from-black/20 to-transparent flex items-center justify-end pr-2">
               <div
@@ -170,8 +365,8 @@ const Products = () => {
             {products.map((product) => (
               <div
                 key={product.id}
-                className={`group relative transition-all duration-700 ease-out cursor-pointer overflow-hidden rounded-lg 
-                flex-shrink-0 w-[120px] md:w-[160px]
+                className={`group relative transition-all duration-700 ease-out cursor-pointer overflow-hidden 
+                flex-shrink-0 w-[120px] md:w-[260px]
                 hover:w-[400px] md:hover:w-[500px]
                 ${
                   hoveredProduct === product.id ? "w-[350px] md:w-[500px]" : ""
@@ -191,48 +386,6 @@ const Products = () => {
                     background: `linear-gradient(135deg, ${product.color}66, ${product.color}33)`,
                   }}
                 >
-                  {/* Content */}
-                  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6">
-                    {/* Product Name - Always Visible */}
-                    <h3
-                      className={`font-uber-move-bold text-white mb-2 transition-all duration-700
-                      ${
-                        hoveredProduct === product.id
-                          ? "text-2xl md:text-3xl opacity-100"
-                          : "text-lg md:text-xl opacity-90 transform -rotate-90 origin-bottom-left absolute bottom-4 left-4 whitespace-nowrap"
-                      }`}
-                      style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.8)" }}
-                    >
-                      {product.name}
-                    </h3>
-
-                    {/* Product Details - Show on Hover */}
-                    <div
-                      className={`transition-all duration-700 delay-200
-                      ${
-                        hoveredProduct === product.id
-                          ? "opacity-100 translate-y-0"
-                          : "opacity-0 translate-y-4"
-                      }`}
-                    >
-                      <p
-                        className="text-white/90 text-base md:text-lg mb-4 font-maxima-nouva"
-                        style={{ textShadow: "1px 1px 2px rgba(0, 0, 0, 0.8)" }}
-                      >
-                        {product.category}
-                      </p>
-
-                      <div className="flex gap-3">
-                        <button className="bg-white/20 text-white border border-white/50 px-4 py-2 rounded-lg font-medium cursor-pointer transition-all duration-300 backdrop-blur-md text-sm hover:bg-white hover:text-black">
-                          View Details
-                        </button>
-                        <button className="bg-white text-black px-4 py-2 rounded-lg font-medium cursor-pointer transition-all duration-300 text-sm hover:bg-gray-200">
-                          Learn More
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
                   {/* Gradient Overlay for Better Text Readability */}
                   <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
                 </div>

@@ -1,9 +1,15 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export const Services = () => {
   const [hoveredSection, setHoveredSection] = useState(1); // Start with first section expanded
+  const navigate = useNavigate();
+
+  const handleServiceClick = (serviceId) => {
+    navigate(`/products?service=${serviceId}`);
+  };
 
   // Import images
   const homeAutomationImg = new URL(
@@ -87,6 +93,7 @@ export const Services = () => {
                 backgroundRepeat: "no-repeat",
               }}
               onMouseEnter={() => setHoveredSection(service.id)}
+              onClick={() => handleServiceClick(service.id)}
             >
               <div className="absolute inset-0 flex items-end justify-center transition-all duration-700 backdrop-blur-[2px]">
                 <div className=" text-white z-10 p-4 md:p-8 w-full">
@@ -104,11 +111,11 @@ export const Services = () => {
                   </h2>
                   <div
                     className={`transition-all duration-700 delay-200 max-w-md mx-auto
-                      ${
-                        hoveredSection === service.id
-                          ? "opacity-100 translate-y-0"
-                          : "opacity-0 translate-y-5"
-                      }`}
+                        ${
+                          hoveredSection === service.id
+                            ? "opacity-100 translate-y-0"
+                            : "opacity-0 translate-y-5"
+                        }`}
                   ></div>
                 </div>
               </div>
