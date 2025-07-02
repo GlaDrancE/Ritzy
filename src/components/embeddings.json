@@ -1,0 +1,47 @@
+[
+    {
+        "text": "Welcome to our website. We provide productivity tools and AI-powered assistants to help you automate daily tasks.",
+        "embedding": [
+            0.0183,
+            -0.0231,
+            0.0012,
+            0.0045,
+            0.0293,
+            -0.0151,
+            0.0033,
+            0.0221,
+            0.0133,
+            -0.0072
+        ]
+    },
+    {
+        "text": "You can contact us via email at support@example.com or check our FAQs for quick answers.",
+        "embedding": [
+            0.0131,
+            -0.0023,
+            0.0111,
+            -0.0066,
+            0.0214,
+            0.0145,
+            -0.0032,
+            0.0055,
+            0.0189,
+            -0.0117
+        ]
+    },
+    {
+        "text": "This chatbot is designed to help users interact with the content of the website and answer relevant questions.",
+        "embedding": [
+            0.0251,
+            -0.0173,
+            0.0105,
+            0.0077,
+            0.0191,
+            0.0066,
+            0.0041,
+            -0.0022,
+            0.0143,
+            0.0084
+        ]
+    }
+]

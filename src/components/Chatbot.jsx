@@ -47,17 +47,15 @@ const Chatbot = () => {
     setInputMessage("");
     setIsTyping(true);
 
-    // Simulate bot response
-    setTimeout(() => {
-      const botResponse = {
-        id: messages.length + 2,
-        text: "Hello! How can I assist you today? If you have any questions about our luxurious fashion shoes or need help with an order, feel free to ask!",
-        sender: "bot",
-        timestamp: getCurrentTime(),
-      };
-      setMessages((prev) => [...prev, botResponse]);
-      setIsTyping(false);
-    }, 1500);
+    const botResponse = {
+      id: messages.length + 2,
+      text: await chat(),
+      sender: "bot",
+      timestamp: getCurrentTime(),
+    };
+    console.log(botResponse);
+    setMessages((prev) => [...prev, botResponse]);
+    setIsTyping(false);
   };
 
   const startNewConversation = () => {
@@ -79,7 +77,8 @@ const Chatbot = () => {
   };
 
   const openai = new OpenAI({
-    apiKey: import.meta.env.VITE_OPENAI_API_KEY,
+    apiKey:
+      "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",
     dangerouslyAllowBrowser: true,
   });
   let embeddings = [];
@@ -102,18 +101,53 @@ const Chatbot = () => {
 
   const chat = async () => {
     const question = inputMessage.trim();
-    if(!question) return;
+    if (!question) return;
 
     const embeddingRes = await openai.embeddings.create({
-      "text-embedding-3-small"
-    })
+      model: "text-embedding-3-small",
+      input: question,
+    });
+    const questionEmbedding = embeddingRes.data[0].embedding;
+    const scored = embeddings.map((e) => ({
+      text: e.text,
+      score: cosineSimilarity(e.embedding, questionEmbedding),
+    }));
+
+    const topChunks = scored
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 3)
+      .map((e) => e.text)
+      .join("\n\n");
+
+    const chatRes = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "system",
+          content:
+            "You're a helpful chatbot answering based on website content.",
+        },
+        {
+          role: "user",
+          content: `Context:\n${topChunks}\n\nQuestion: ${question}`,
+        },
+      ],
+    });
+
+    console.log(chatRes.choices[0].message.content);
+
+    return chatRes.choices[0].message.content;
   };
+
+  useEffect(() => {
+    loadEmbeddings();
+  }, []);
 
   return (
     <>
       {/* Chat trigger button */}
       <div
-        className="fixed bottom-6 right-6 z-50 cursor-pointer"
+        className="fixed bottom-6 right-6 z-[99999999999999999999999] cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="bg-black text-white p-4 rounded-full shadow-lg hover:bg-gray-800 transition-colors">
