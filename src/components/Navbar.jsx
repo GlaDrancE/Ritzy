@@ -34,7 +34,7 @@ export default function Navbar({ home = false, ...props }) {
   }
   return (
     <>
-      <nav className="w-screen invert" {...props}>
+      <nav className="w-screen" {...props}>
         <div className="w-[77%]  py-6 mx-auto flex justify-between items-center">
           <div
             className=" font-maxima-nouva-thin !font-thin text-[1rem] cursor-pointer"
@@ -47,7 +47,7 @@ export default function Navbar({ home = false, ...props }) {
               style={{ transform: "translateX(-100%)" }}
             >
               <div className="flex w-full justify-between items-center p-6">
-                <Link to={"/"} className="text-3xl font-bold invert">
+                <Link to={"/"} className="text-3xl font-bold">
                   <img src={logo} className="h-8" alt="" />
                 </Link>
                 <button
@@ -151,7 +151,7 @@ export default function Navbar({ home = false, ...props }) {
                   <li>
                     <Link
                       to={"/contact"}
-                      className="text-white hover:text-gray-300 transition-colors"
+                      className="text-white transition-colors hover:text-gray-300 "
                     >
                       Contact
                     </Link>
@@ -162,12 +162,12 @@ export default function Navbar({ home = false, ...props }) {
           </div>
           <Link
             to={"/"}
-            className={`text-3xl font-bold absolute left-1/2 -translate-x-1/2 invert`}
+            className={`text-3xl font-bold absolute left-1/2 -translate-x-1/2`}
           >
             <img src={logo} className="w-8 h-8" alt="" />
           </Link>
           <Link to={"/contact"}>
-            <button className="border-2 hover:bg-black hover:text-white transition-all duration-750 border-black px-4 py-2 text-[12px] rounded-full font-maxima-nouva-thin">
+            <button className="border-2 hover:bg-white  text-white hover:text-black transition-all duration-750 border-white px-4 py-2 text-[12px] rounded-full font-maxima-nouva-thin">
               Get Started
             </button>
           </Link>

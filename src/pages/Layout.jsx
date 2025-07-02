@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 // import Preloader from "../components/Preloader";
 // import { useImages } from "../context/ImageContext";
 import gsap from "gsap";
+import Chatbot from "../components/Chatbot";
 
 export default function Layout({ children }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -50,6 +51,8 @@ export default function Layout({ children }) {
     <div className="animated-gradient-bg">
       {/* {isLoading && <Preloader />} */}
       {children}
+      {/* Chatbot */}
+      <Chatbot />
     </div>
   );
 }

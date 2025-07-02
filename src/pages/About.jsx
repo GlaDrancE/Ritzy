@@ -68,7 +68,7 @@ function AboutPage() {
   }, []);
 
   return (
-    <main className="tertiary-bg about-page" data-scroll-container>
+    <main className=" about-page" data-scroll-container>
       <div id="about"></div>
       <div className="about-panel">
         <div className="outer">
@@ -98,7 +98,7 @@ function AboutPage() {
           </div>
         </div>
       </div>
-      <Footer className={"tertiary-bg"} />
+      <Footer className={""} />
     </main>
   );
 }

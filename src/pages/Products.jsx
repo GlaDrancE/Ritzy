@@ -346,9 +346,9 @@ const Products = () => {
   }, []);
 
   return (
-    <>
+    <div className="animated-gradient-bg" id="products">
       <Navbar />
-      <div className="w-full min-h-screen bg-black text-white pt-24 md:pt-32 px-4 md:px-8">
+      <div className="w-full min-h-screen text-white pt-24 md:pt-32 px-4 md:px-8">
         {/* Header Section */}
         <div className="mb-12 md:mb-16">
           <h1 className="text-4xl md:text-6xl font-maxima-nouva-thin text-gray-300 mb-4">
@@ -445,7 +445,7 @@ const Products = () => {
         {/* Bottom Space */}
         <div className="h-16 md:h-20"></div>
       </div>
-    </>
+    </div>
   );
 };
 

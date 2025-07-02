@@ -67,14 +67,14 @@ function App() {
           #374151 0%,
           #1f2937 25%,
           #111827 50%,
-          #f97316 75%,
+          #111827 75%,
           #ea580c 100%
         )`;
 
       const atmosphere = `
         radial-gradient(circle at ${atm1X}% ${atm1Y}%, rgba(31, 41, 55, 0.3) 0%, transparent 60%),
         radial-gradient(circle at ${atm2X}% ${atm2Y}%, rgba(17, 24, 39, 0.4) 0%, transparent 50%),
-        radial-gradient(circle at ${atm3X}% ${atm3Y}%, rgba(249, 115, 22, 0.3) 0%, transparent 70%)
+        radial-gradient(circle at ${atm3X}% ${atm3Y}%, rgba(17, 24, 39, 0.3) 0%, transparent 70%)
       `;
       const animatedGradient = document.querySelectorAll(
         ".animated-gradient-bg"

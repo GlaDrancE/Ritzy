@@ -124,9 +124,7 @@ export default function Home() {
         style={{
           position: "absolute",
           zIndex: "9999",
-          color: "black",
-          background: "linear-gradient(180deg, #bababa, transparent)",
-          filter: "invert(1)",
+          background: "linear-gradient(180deg, #111827, transparent)",
         }}
       />
       {allImagesLoaded && <HomePage />}

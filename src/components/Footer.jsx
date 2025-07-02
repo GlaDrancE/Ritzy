@@ -41,7 +41,7 @@ export default function Footer({ className }) {
                   <HashLink to={"/about#about"}>About</HashLink>
                 </li>
                 <li>
-                  <Link to={"/services"}>Services</Link>
+                  <HashLink to={"/services#services"}>Services</HashLink>
                 </li>
                 <li>
                   <Link to={"/contact"}>Contact</Link>

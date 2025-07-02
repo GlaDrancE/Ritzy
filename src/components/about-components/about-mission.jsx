@@ -21,7 +21,7 @@ const AboutMission = () => {
       <div className="h-[100vh] w-full -mt-[100vh]" ref={containerRef}>
         <div className="h-screen w-full relative bottom-0">
           <div className="h-screen w-full relative">
-            <div id="mission" className="h-full w-full secondary-bg">
+            <div id="mission" className="h-full w-full animated-gradient-bg">
               <div className="grid md:grid-cols-[35%,65%] self-center text-white items-center w-full h-full">
                 <div className="w-full h-full flex items-center">
                   <h1 className="md:text-4xl w-full text-2xl md:p-24 p-8 font-maxima-nouva font-semibold text-center ">

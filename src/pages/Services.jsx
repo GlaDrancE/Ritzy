@@ -72,7 +72,7 @@ export const Services = () => {
   ];
 
   return (
-    <div className="animated-gradient-bg">
+    <div className="animated-gradient-bg" id="services">
       <Navbar />
       <div className="w-full min-h-screen overflow-hidden secondary-bg">
         <div className="flex flex-col h-full overflow-hidden min-h-[calc(100vh-7rem)] md:min-h-full">

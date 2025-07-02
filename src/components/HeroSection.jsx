@@ -291,6 +291,9 @@ export default function HeroSection() {
         zIndex: "99",
         position: "relative",
         background: `url("/frames/1.webp")`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
       ref={containerRef}
     >

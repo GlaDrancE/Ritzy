@@ -183,7 +183,7 @@ html {
 }
 
 .nav-links-container a {
-  color: black;
+  color: white;
   text-decoration: none;
   transition: color 0.3s ease;
 }

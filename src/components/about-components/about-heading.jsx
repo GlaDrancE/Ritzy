@@ -8,7 +8,7 @@ export const AboutHeading = () => {
   const containerRef = useRef(null);
   return (
     <section
-      className="w-full flex h-screen justify-start font-maxima-nouva md:font-semibold md:text-3xl text-center text-white md:px-24 px-2 secondary-bg items-center z-50 relative"
+      className="w-full flex h-screen justify-start font-maxima-nouva md:font-semibold md:text-3xl text-center text-white md:px-24 px-2 animated-gradient-bg items-center z-50 relative"
       ref={containerRef}
     >
       <div className="">

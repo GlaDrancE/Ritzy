@@ -25,7 +25,10 @@ function ContactPage() {
     }
   };
   return (
-    <div className="bg-[#EBE5C2] text-black" onClick={handleContactClick}>
+    <div
+      className="animated-gradient-bg text-white"
+      onClick={handleContactClick}
+    >
       <Navbar
         style={
           {
@@ -34,7 +37,7 @@ function ContactPage() {
           }
         }
       />
-      <div className="w-[98vw] h-auto md:h-screen md:overflow-hidden  text-black">
+      <div className="w-[98vw] h-auto md:h-screen md:overflow-hidden  text-white">
         <div
           className="md:grid block h-full px-4 md:mt-0 mt-24"
           style={{ gridTemplateColumns: "45% 55%" }}
@@ -67,7 +70,7 @@ function ContactPage() {
                 <div className="md:mt-0 mt-32">
                   <hr className="block bg-black h-[0.1rem] w-11/12 mx-auto mb-[8vh]" />
                   <div className="pb-8">
-                    <div className="grid grid-cols-3 place-items-center mb-4 invert">
+                    <div className="grid grid-cols-3 place-items-center mb-4">
                       <div>
                         <Company1 className={"h-8"} />
                       </div>
@@ -78,7 +81,7 @@ function ContactPage() {
                         <Company3 className={"h-8"} />
                       </div>
                     </div>
-                    <div className="grid grid-cols-2 place-items-center invert">
+                    <div className="grid grid-cols-2 place-items-center">
                       <div>
                         <Company4 className={"h-8"} />
                       </div>
