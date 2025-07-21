@@ -171,7 +171,7 @@ const Chatbot = () => {
 
       {/* Chatbot modal */}
       {isOpen && (
-        <div className="fixed bottom-20 right-6 z-50">
+        <div className="fixed bottom-20 right-6 z-[9999999999999999999999999]">
           <div className="bg-white rounded-2xl shadow-2xl w-80 h-96 flex flex-col overflow-hidden border border-gray-200">
             {/* Header */}
             <div className="bg-white px-6 py-4 border-b border-gray-100 flex items-center justify-between">

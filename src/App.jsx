@@ -89,6 +89,7 @@ function App() {
 
     requestAnimationFrame(animate);
   }, []);
+
   return (
     <>
       <ImageProvider>

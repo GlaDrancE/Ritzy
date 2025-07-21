@@ -5,7 +5,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  border: 1px solid red;
 }
 body,
 html {
@@ -901,4 +900,27 @@ html:has(.contact-model) {
   .product-name-bg {
     font-size: clamp(3rem, 8vw, 10rem);
   }
+}
+
+/* Add section-based auto-scroll styles */
+.section {
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Ensure smooth scrolling behavior */
+html {
+  scroll-behavior: auto; /* Let GSAP handle the smooth scrolling */
+}
+
+/* Disable default scroll snapping that might interfere */
+body {
+  scroll-snap-type: none;
+  overflow-x: hidden;
+}
+
+/* Prevent text selection during scroll animations */
+.section.scrolling {
+  user-select: none;
+  pointer-events: none;
 }

@@ -1,16 +1,97 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import SplitType from "split-type";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import img1 from "../assets/images/slides/img1.jpg";
 import img2 from "../assets/images/slides/img2.jpg";
 import img3 from "../assets/images/slides/img3.jpg";
-gsap.registerPlugin(ScrollTrigger);
+import Observer from "gsap/Observer";
+gsap.registerPlugin(ScrollTrigger, Observer);
 export default function FixedBackgroundImage() {
   const containerRef = useRef();
   const containerRef2 = useRef();
-  // const sliderRef = useRef();
+
+  const [currentSection, setCurrentSection] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  // Refs for each section
+  const section1Ref = useRef(null);
+  const section2Ref = useRef(null);
+  const section3Ref = useRef(null);
+  const section4Ref = useRef(null);
+
+  const sections = [section1Ref, section2Ref, section3Ref, section4Ref];
+
+  const totalSections = sections.length;
+
+  // Function to scroll to a specific section
+  const gotoSection = (index) => {
+    if (index < 0 || index >= totalSections || isAnimating) return;
+
+    setIsAnimating(true);
+    setCurrentSection(index);
+
+    gsap.to(window, {
+      duration: 1,
+      scrollTo: { y: sections[index].current, offsetY: 0 },
+      ease: "power2.inOut",
+      onComplete: () => {
+        setIsAnimating(false);
+      },
+    });
+  };
+
+  useEffect(() => {
+    // Create GSAP Observer for scroll detection
+    let observer = Observer.create({
+      target: window,
+      type: "wheel,touch,scroll",
+      wheelSpeed: 1,
+      onDown: () => {
+        if (!isAnimating && currentSection < totalSections - 1) {
+          gotoSection(currentSection + 1);
+        }
+      },
+      onUp: () => {
+        if (!isAnimating && currentSection > 0) {
+          gotoSection(currentSection - 1);
+        }
+      },
+      tolerance: 10,
+      preventDefault: true,
+    });
+
+    // Keyboard navigation
+    const handleKeydown = (e) => {
+      if (isAnimating) return;
+
+      if (e.key === "ArrowDown" || e.key === "PageDown") {
+        e.preventDefault();
+        if (currentSection < totalSections - 1) {
+          gotoSection(currentSection + 1);
+        }
+      } else if (e.key === "ArrowUp" || e.key === "PageUp") {
+        e.preventDefault();
+        if (currentSection > 0) {
+          gotoSection(currentSection - 1);
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeydown);
+
+    // Cleanup
+    return () => {
+      observer.kill();
+      window.removeEventListener("keydown", handleKeydown);
+    };
+  }, [currentSection, isAnimating, totalSections]);
+
+  // Set initial scroll position
+  useEffect(() => {
+    gsap.set(window, { scrollTo: { y: 0 } });
+  }, []);
 
   useGSAP(() => {
     const vpHeight = window.innerHeight;
@@ -200,14 +281,17 @@ export default function FixedBackgroundImage() {
           <div className="h-[300vh] inner-container">
             <div
               className="home-fixed-image slider-1"
+              ref={section1Ref}
               style={{ backgroundImage: `url(${img1})` }}
             ></div>
             <div
               className="home-fixed-image slider-2"
+              ref={section2Ref}
               style={{ backgroundImage: `url(${img2})` }}
             ></div>
             <div
               className="home-fixed-image slider-3"
+              ref={section3Ref}
               style={{ backgroundImage: `url(${img3})` }}
             ></div>
           </div>
