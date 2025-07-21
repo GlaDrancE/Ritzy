@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Power,
   ArrowUpRight,
@@ -20,9 +20,6 @@ import avEquipmentImg from "../assets/images/products/av-equipments.png";
 import officeImg from "../assets/images/office/office.jpg";
 import parkingImg from "../assets/images/office/parking.png";
 import ctaBg from "../assets/home/cta.png";
-import gsap from "gsap";
-import { Observer } from "gsap/Observer";
-import { useGSAP } from "@gsap/react";
 
 const Home = () => {
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
@@ -97,60 +94,6 @@ const Home = () => {
     },
   ];
 
-  useGSAP(() => {
-    gsap.registerPlugin(Observer);
-
-    let sections = document.querySelectorAll("section"),
-      outerWrappers = gsap.utils.toArray(".outer"),
-      innerWrappers = gsap.utils.toArray(".inner"),
-      currentIndex = -1,
-      wrap = gsap.utils.wrap(0, sections.length),
-      animating;
-
-    gsap.set(outerWrappers, { yPercent: 100 });
-    gsap.set(innerWrappers, { yPercent: -100 });
-
-    function gotoSection(index, direction) {
-      console.log("Scrolling");
-      index = wrap(index); // make sure it's valid
-      animating = true;
-      let fromTop = direction === -1,
-        dFactor = fromTop ? -1 : 1,
-        tl = gsap.timeline({
-          defaults: { duration: 1.25, ease: "power1.inOut" },
-          onComplete: () => (animating = false),
-        });
-      if (currentIndex >= 0) {
-        // The first time this function runs, current is -1
-        gsap.set(sections[currentIndex], { zIndex: 0 });
-      }
-      gsap.set(sections[index], { autoAlpha: 1, zIndex: 1 });
-      tl.fromTo(
-        [outerWrappers[index], innerWrappers[index]],
-        {
-          yPercent: (i) => (i ? -100 * dFactor : 100 * dFactor),
-        },
-        {
-          yPercent: 0,
-        },
-        0
-      );
-
-      currentIndex = index;
-    }
-
-    Observer.create({
-      type: "wheel,touch,pointer",
-      wheelSpeed: -1,
-      onDown: () => !animating && gotoSection(currentIndex - 1, -1),
-      onUp: () => !animating && gotoSection(currentIndex + 1, 1),
-      tolerance: 10,
-      preventDefault: true,
-    });
-
-    gotoSection(0, 1);
-  }, []);
-
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % Math.ceil(services.length / 4));
   };
@@ -164,237 +107,226 @@ const Home = () => {
   return (
     <>
       {/* Section 1 */}
-      <section className="relative w-full h-screen overflow-hidden">
-        <div className="outer">
-          <div className="inner">
-            {/* Background Image with Smooth Transition */}
-            <div className="absolute inset-0">
-              {backgroundImages.map((image, index) => (
-                <div
-                  key={index}
-                  className={`absolute inset-0 bg-cover bg-center bg-no-repeat  ${
-                    index === currentBgIndex ? "opacity-100" : "opacity-0"
-                  }`}
-                  style={{
-                    backgroundImage: `url(${image})`,
-                  }}
-                />
-              ))}
-              {/* Dark overlay for better text readability */}
-              <div className="absolute inset-0 bg-black bg-opacity-50" />
-            </div>
+      <div className="relative w-full h-screen overflow-hidden">
+        {/* Background Image with Smooth Transition */}
+        <div className="absolute inset-0">
+          {backgroundImages.map((image, index) => (
+            <div
+              key={index}
+              className={`absolute inset-0 bg-cover bg-center bg-no-repeat  ${
+                index === currentBgIndex ? "opacity-100" : "opacity-0"
+              }`}
+              style={{
+                backgroundImage: `url(${image})`,
+              }}
+            />
+          ))}
+          {/* Dark overlay for better text readability */}
+          <div className="absolute inset-0 bg-black bg-opacity-50" />
+        </div>
 
-            {/* Content */}
-            <div className="relative z-10 h-full flex flex-col justify-center px-8 md:px-16 lg:px-20">
-              <div className="max-w-2xl">
-                {/* Subtitle */}
-                <p className="text-gray-300 text-lg md:text-xl mb-6 font-light">
-                  Smart Home & Office Automation Solutions
-                </p>
+        {/* Content */}
+        <div className="relative z-10 h-full flex flex-col justify-center px-8 md:px-16 lg:px-20">
+          <div className="max-w-2xl">
+            {/* Subtitle */}
+            <p className="text-gray-300 text-lg md:text-xl mb-6 font-light">
+              Smart Home & Office Automation Solutions
+            </p>
 
-                {/* Main Heading */}
-                <h1 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold leading-tight mb-8">
-                  Transform Your Space
-                  <br />
-                  <span className="text-white">with Ritzy Lifestyle</span>
-                </h1>
+            {/* Main Heading */}
+            <h1 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold leading-tight mb-8">
+              Transform Your Space
+              <br />
+              <span className="text-white">with Ritzy Lifestyle</span>
+            </h1>
 
-                {/* Description */}
-                <p className="text-gray-300 text-lg md:text-xl mb-12 max-w-xl leading-relaxed">
-                  Discover seamless comfort, security, and entertainment with
-                  Ritzy Lifestyle&apos;s cutting-edge automation systems. Based
-                  in Hebbal, Bangalore, we create personalized, future-proof
-                  solutions for homes and businesses.
-                </p>
+            {/* Description */}
+            <p className="text-gray-300 text-lg md:text-xl mb-12 max-w-xl leading-relaxed">
+              Discover seamless comfort, security, and entertainment with Ritzy
+              Lifestyle&apos;s cutting-edge automation systems. Based in Hebbal,
+              Bangalore, we create personalized, future-proof solutions for
+              homes and businesses.
+            </p>
 
-                {/* CTA Button */}
-                <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors duration-300 shadow-lg hover:shadow-xl">
-                  Get a Free Consultation
-                </button>
-              </div>
-            </div>
-
-            {/* Bottom Right Control */}
-            <div className="absolute bottom-8 right-8 flex flex-col items-center space-y-4">
-              <p className="text-white text-sm font-light text-center max-w-48">
-                Turn on the lights of your homes with click of a button
-              </p>
-
-              {/* Power Button */}
-              <button
-                onClick={handleImageChange}
-                className="group relative w-16 h-16 bg-transparent border-2 border-red-500 rounded-full flex items-center justify-center hover:bg-red-500 transition-all duration-300 shadow-lg hover:shadow-red-500/30 z-[9999]"
-              >
-                <Power
-                  size={24}
-                  className="text-red-500 group-hover:text-white transition-colors duration-300"
-                />
-
-                {/* Glowing effect */}
-                <div className="absolute inset-0 rounded-full border-2 border-red-500 animate-pulse opacity-75" />
-              </button>
-            </div>
+            {/* CTA Button */}
+            <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors duration-300 shadow-lg hover:shadow-xl">
+              Get a Free Consultation
+            </button>
           </div>
         </div>
-      </section>
+
+        {/* Bottom Right Control */}
+        <div className="absolute bottom-8 right-8 flex flex-col items-center space-y-4">
+          <p className="text-white text-sm font-light text-center max-w-48">
+            Turn on the lights of your homes with click of a button
+          </p>
+
+          {/* Power Button */}
+          <button
+            onClick={handleImageChange}
+            className="group relative w-16 h-16 bg-transparent border-2 border-red-500 rounded-full flex items-center justify-center hover:bg-red-500 transition-all duration-300 shadow-lg hover:shadow-red-500/30 z-[9999]"
+          >
+            <Power
+              size={24}
+              className="text-red-500 group-hover:text-white transition-colors duration-300"
+            />
+
+            {/* Glowing effect */}
+            <div className="absolute inset-0 rounded-full border-2 border-red-500 animate-pulse opacity-75" />
+          </button>
+        </div>
+      </div>
 
       {/* Section 2 - Services */}
-      <section className="w-full min-h-screen bg-gradient-to-br from-stone-100 via-stone-200 to-stone-300 px-8 md:px-16 lg:px-20 py-16 md:py-24">
-        <div className="outer">
-          <div className="inner">
-            {/* Header Section */}
-            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-16 md:mb-20">
-              {/* Left Side - Title */}
-              <div className="mb-8 lg:mb-0">
-                <div className="flex items-center mb-6">
-                  <div className="bg-amber-100 text-amber-800 px-4 py-2 rounded-full text-sm font-medium">
-                    🔧 Our services
-                  </div>
-                </div>
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight">
-                  What we can do
-                  <br />
-                  <span className="italic font-light">for you</span>
-                </h2>
-              </div>
-
-              {/* Right Side - Description and Button */}
-              <div className="max-w-md">
-                <p className="text-gray-600 text-lg md:text-xl mb-8 leading-relaxed">
-                  From design to installation, we provide quality smart home
-                  solutions tailored to your needs.
-                </p>
-                <button className="group bg-orange-500 hover:bg-orange-600 text-white px-2 pl-8 py-2 rounded-full text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center space-x-3">
-                  <span>See our services</span>
-                  <span className=" bg-black rounded-full p-3">
-                    <ArrowUpRight
-                      size={16}
-                      className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"
-                    />
-                  </span>
-                </button>
+      <div className="w-full min-h-screen bg-gradient-to-br from-stone-100 via-stone-200 to-stone-300 px-8 md:px-16 lg:px-20 py-16 md:py-24">
+        {/* Header Section */}
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-16 md:mb-20">
+          {/* Left Side - Title */}
+          <div className="mb-8 lg:mb-0">
+            <div className="flex items-center mb-6">
+              <div className="bg-amber-100 text-amber-800 px-4 py-2 rounded-full text-sm font-medium">
+                🔧 Our services
               </div>
             </div>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight">
+              What we can do
+              <br />
+              <span className="italic font-light">for you</span>
+            </h2>
+          </div>
 
-            {/* Service Cards Slider */}
-            <div className="relative">
-              {/* Navigation Buttons */}
-              <button
-                onClick={prevSlide}
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-12 h-12 bg-white rounded-full shadow-lg hover:shadow-xl flex items-center justify-center transition-all duration-300 hover:bg-gray-50"
-              >
-                <ChevronLeft size={24} className="text-gray-600" />
-              </button>
-
-              <button
-                onClick={nextSlide}
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-12 h-12 bg-white rounded-full shadow-lg hover:shadow-xl flex items-center justify-center transition-all duration-300 hover:bg-gray-50"
-              >
-                <ChevronRight size={24} className="text-gray-600" />
-              </button>
-
-              {/* Slider Container */}
-              <div className="overflow-hidden">
-                <div
-                  className="flex transition-transform duration-500 ease-in-out"
-                  style={{
-                    transform: `translateX(-${currentSlide * 100}%)`,
-                    width: `${Math.ceil(services.length / 8) * 100}%`,
-                  }}
-                >
-                  {Array.from(
-                    { length: Math.ceil(services.length / 2) },
-                    (_, slideIndex) => (
-                      <div
-                        key={slideIndex}
-                        className="w-full flex-shrink-0 px-2"
-                      >
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-                          {services
-                            .slice(slideIndex * 4, slideIndex * 4 + 4)
-                            .map((service) => (
-                              <div
-                                key={service.id}
-                                className="group relative h-80 md:h-96 bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform cursor-pointer"
-                                onMouseEnter={() => setHoveredCard(service.id)}
-                                onMouseLeave={() => setHoveredCard(null)}
-                              >
-                                {/* Background Image */}
-                                <div
-                                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                                  style={{
-                                    backgroundImage: `url(${service.image})`,
-                                  }}
-                                />
-
-                                {/* Overlay */}
-                                <div className="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-40 transition-all duration-500" />
-
-                                {/* Content */}
-                                <div className="relative h-full flex flex-col justify-between p-6">
-                                  {/* Arrow Icon */}
-                                  <div className="flex justify-end">
-                                    <div className="w-12 h-12 bg-white bg-opacity-20 backdrop-blur-sm rounded-full flex items-center justify-center ">
-                                      <ArrowUpRight
-                                        size={20}
-                                        className="text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"
-                                      />
-                                    </div>
-                                  </div>
-
-                                  {/* Title */}
-                                  <div className="space-y-2">
-                                    <h3 className="text-white text-xl md:text-2xl font-semibold leading-tight">
-                                      {service.title}
-                                    </h3>
-
-                                    {/* Expanded content on hover */}
-                                    <div
-                                      className={`overflow-hidden transition-all duration-500 ${
-                                        hoveredCard === service.id
-                                          ? "max-h-32 opacity-100"
-                                          : "max-h-0 opacity-0"
-                                      }`}
-                                    >
-                                      <p className="text-white text-sm mt-3 leading-relaxed">
-                                        {service.description}
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div>
-
-                                {/* Hover effect border */}
-                                <div className="absolute inset-0 rounded-2xl border-2 border-transparent " />
-                              </div>
-                            ))}
-                        </div>
-                      </div>
-                    )
-                  )}
-                </div>
-              </div>
-
-              {/* Dots Indicator */}
-              <div className="flex justify-center mt-8 space-x-2">
-                {Array.from(
-                  { length: Math.ceil(services.length / 4) },
-                  (_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentSlide(index)}
-                      className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                        currentSlide === index
-                          ? "bg-orange-500 scale-125"
-                          : "bg-gray-300 hover:bg-gray-400"
-                      }`}
-                    />
-                  )
-                )}
-              </div>
-            </div>
+          {/* Right Side - Description and Button */}
+          <div className="max-w-md">
+            <p className="text-gray-600 text-lg md:text-xl mb-8 leading-relaxed">
+              From design to installation, we provide quality smart home
+              solutions tailored to your needs.
+            </p>
+            <button className="group bg-orange-500 hover:bg-orange-600 text-white px-2 pl-8 py-2 rounded-full text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center space-x-3">
+              <span>See our services</span>
+              <span className=" bg-black rounded-full p-3">
+                <ArrowUpRight
+                  size={16}
+                  className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"
+                />
+              </span>
+            </button>
           </div>
         </div>
-      </section>
+
+        {/* Service Cards Slider */}
+        <div className="relative">
+          {/* Navigation Buttons */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-12 h-12 bg-white rounded-full shadow-lg hover:shadow-xl flex items-center justify-center transition-all duration-300 hover:bg-gray-50"
+          >
+            <ChevronLeft size={24} className="text-gray-600" />
+          </button>
+
+          <button
+            onClick={nextSlide}
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-12 h-12 bg-white rounded-full shadow-lg hover:shadow-xl flex items-center justify-center transition-all duration-300 hover:bg-gray-50"
+          >
+            <ChevronRight size={24} className="text-gray-600" />
+          </button>
+
+          {/* Slider Container */}
+          <div className="overflow-hidden">
+            <div
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{
+                transform: `translateX(-${currentSlide * 100}%)`,
+                width: `${Math.ceil(services.length / 8) * 100}%`,
+              }}
+            >
+              {Array.from(
+                { length: Math.ceil(services.length / 2) },
+                (_, slideIndex) => (
+                  <div key={slideIndex} className="w-full flex-shrink-0 px-2">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                      {services
+                        .slice(slideIndex * 4, slideIndex * 4 + 4)
+                        .map((service) => (
+                          <div
+                            key={service.id}
+                            className="group relative h-80 md:h-96 bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform cursor-pointer"
+                            onMouseEnter={() => setHoveredCard(service.id)}
+                            onMouseLeave={() => setHoveredCard(null)}
+                          >
+                            {/* Background Image */}
+                            <div
+                              className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                              style={{
+                                backgroundImage: `url(${service.image})`,
+                              }}
+                            />
+
+                            {/* Overlay */}
+                            <div className="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-40 transition-all duration-500" />
+
+                            {/* Content */}
+                            <div className="relative h-full flex flex-col justify-between p-6">
+                              {/* Arrow Icon */}
+                              <div className="flex justify-end">
+                                <div className="w-12 h-12 bg-white bg-opacity-20 backdrop-blur-sm rounded-full flex items-center justify-center ">
+                                  <ArrowUpRight
+                                    size={20}
+                                    className="text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"
+                                  />
+                                </div>
+                              </div>
+
+                              {/* Title */}
+                              <div className="space-y-2">
+                                <h3 className="text-white text-xl md:text-2xl font-semibold leading-tight">
+                                  {service.title}
+                                </h3>
+
+                                {/* Expanded content on hover */}
+                                <div
+                                  className={`overflow-hidden transition-all duration-500 ${
+                                    hoveredCard === service.id
+                                      ? "max-h-32 opacity-100"
+                                      : "max-h-0 opacity-0"
+                                  }`}
+                                >
+                                  <p className="text-white text-sm mt-3 leading-relaxed">
+                                    {service.description}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Hover effect border */}
+                            <div className="absolute inset-0 rounded-2xl border-2 border-transparent " />
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+                )
+              )}
+            </div>
+          </div>
+
+          {/* Dots Indicator */}
+          <div className="flex justify-center mt-8 space-x-2">
+            {Array.from(
+              { length: Math.ceil(services.length / 4) },
+              (_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentSlide(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    currentSlide === index
+                      ? "bg-orange-500 scale-125"
+                      : "bg-gray-300 hover:bg-gray-400"
+                  }`}
+                />
+              )
+            )}
+          </div>
+        </div>
+      </div>
 
       {/* Section 3 - Features */}
       <div className="w-full min-h-screen bg-gray-50 px-8 md:px-16 lg:px-20 py-16 md:py-24">
