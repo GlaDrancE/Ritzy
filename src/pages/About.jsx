@@ -9,7 +9,10 @@ import AboutTeam from "../components/about-components/about-team";
 import Footer from "../components/Footer";
 import "locomotive-scroll/dist/locomotive-scroll.css";
 import LocomotiveScroll from "locomotive-scroll";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 function AboutPage() {
+  gsap.registerPlugin(ScrollTrigger);
   // useEffect(() => {
   //   const panels = document.querySelectorAll(".about-panel");
   //   const outer = document.querySelectorAll(".outer");
@@ -71,32 +74,16 @@ function AboutPage() {
     <main className=" about-page" data-scroll-container>
       <div id="about"></div>
       <div className="about-panel">
-        <div className="outer">
-          <div className="inner">
-            <AboutHero />
-          </div>
-        </div>
+        <AboutHero />
       </div>
       <div className="about-panel" data-scroll data-scroll-speed="0.5">
-        <div className="outer">
-          <div className="inner">
-            <AboutHeading />
-          </div>
-        </div>
+        <AboutHeading />
       </div>
       <div className="about-panel">
-        <div className="outer">
-          <div className="inner">
-            <AboutMission />
-          </div>
-        </div>
+        <AboutMission />
       </div>
       <div className="about-panel">
-        <div className="outer">
-          <div className="inner">
-            <AboutTeam />
-          </div>
-        </div>
+        <AboutTeam />
       </div>
       <Footer className={""} />
     </main>
