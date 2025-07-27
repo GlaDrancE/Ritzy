@@ -34,8 +34,8 @@ export default function Navbar({ home = false, ...props }) {
   }
   return (
     <>
-      <nav className="w-screen" {...props}>
-        <div className="w-[77%]  py-6 mx-auto flex justify-between items-center">
+      <nav className="w-screen py-6" {...props}>
+        <div className="md:w-[77%] md:mx-auto flex justify-between items-center">
           <div
             className=" font-maxima-nouva-thin !font-thin text-[1rem] cursor-pointer"
             style={{ letterSpacing: "2px" }}
@@ -164,11 +164,11 @@ export default function Navbar({ home = false, ...props }) {
             to={"/"}
             className={`text-3xl font-bold absolute left-1/2 -translate-x-1/2`}
           >
-            <img src={logo} className="w-8 h-8" alt="" />
+            <img src={logo} className="w-12 h-12" alt="" />
           </Link>
           <Link to={"/contact"}>
-            <button className="border-2 hover:bg-white  text-white hover:text-black transition-all duration-750 border-white px-4 py-2 text-[12px] rounded-full font-maxima-nouva-thin">
-              Get Started
+            <button className=" bg-gradient-to-tr from-[#FF6735] to-[#993E20] px-4 py-2 text-sm rounded-md text-white font-maxima-nouva ">
+              Get free consultation
             </button>
           </Link>
         </div>
