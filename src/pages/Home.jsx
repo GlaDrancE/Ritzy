@@ -1,30 +1,48 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import section1Video from "../assets/home/section1.mp4";
+import section1PhoneVideo from "../assets/home/section1_phone.mp4";
 import { CalloutPointer } from "../components/CalloutPointer";
+import Layout from "./Layout";
 
 const Home = () => {
   const [videoEnded, setVideoEnded] = useState(false);
+
+  const handleVideoEnd = (e) => {
+    e.target.pause();
+    setVideoEnded(true);
+  };
+
   return (
-    <>
-      <div className="absolute inset-0 z-[9999]">
+    <Layout>
+      <div className="absolute inset-0 z-[999]">
         <Navbar className="morph-glass !backdrop-blur-0 !py-6 sticky top-0 border-b-2 border-[#b0b0b0]" />
       </div>
       <section className="relative w-full h-screen overflow-hidden">
-        {/* Video Background */}
+        {/* Desktop Video Background - Hidden on mobile */}
         <video
           autoPlay
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-          onEnded={(e) => {
-            e.target.pause();
-            setVideoEnded(true);
-          }}
+          className="absolute inset-0 w-full h-full object-cover hidden md:block"
+          onEnded={handleVideoEnd}
         >
           <source src={section1Video} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
+
+        {/* Mobile Video Background - Hidden on desktop */}
+        <video
+          autoPlay
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover block md:hidden"
+          onEnded={handleVideoEnd}
+        >
+          <source src={section1PhoneVideo} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+
         {/* Optional overlay for better text readability if needed */}
         <div className="absolute inset-0 bg-black bg-opacity-20"></div>
 
@@ -81,7 +99,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-    </>
+    </Layout>
   );
 };
 

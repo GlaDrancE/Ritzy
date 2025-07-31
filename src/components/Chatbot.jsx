@@ -3,6 +3,12 @@ import { OpenAI } from "openai";
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showForm, setShowForm] = useState(true);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
   const [messages, setMessages] = useState([
     {
       id: 1,
@@ -15,14 +21,33 @@ const Chatbot = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [chatEnded, setChatEnded] = useState(false);
   const messagesEndRef = useRef(null);
+  const scrollContainerRef = useRef(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const handleWheel = (e) => {
+    e.preventDefault();
+    const container = scrollContainerRef.current;
+    if (container) {
+      container.scrollTop += e.deltaY;
+    }
+  };
+
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // Load user data from localStorage on component mount
+  useEffect(() => {
+    const savedUserData = localStorage.getItem("ritzyChatbotUser");
+    if (savedUserData) {
+      const userData = JSON.parse(savedUserData);
+      setFormData(userData);
+      setShowForm(false); // Skip form if user data exists
+    }
+  }, []);
 
   const getCurrentTime = () => {
     const now = new Date();
@@ -31,6 +56,29 @@ const Chatbot = () => {
       minute: "2-digit",
       hour12: true,
     });
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    document.getElementById("contact").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = new FormData(e.target);
+      const res = await fetch("https://ritzylifestyle.in/contact.php", {
+        method: "POST",
+        body: data,
+      });
+      const json = await res.json();
+    });
+    localStorage.setItem("ritzyChatbotUser", JSON.stringify(formData));
+    setShowForm(false);
+  };
+
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const sendMessage = async () => {
@@ -142,7 +190,6 @@ const Chatbot = () => {
   useEffect(() => {
     loadEmbeddings();
   }, []);
-
   return (
     <>
       {/* Chat trigger button */}
@@ -205,73 +252,168 @@ const Chatbot = () => {
               </button>
             </div>
 
-            {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
-              {messages.map((message) => (
-                <div
-                  key={message.id}
-                  className={`flex ${
-                    message.sender === "user" ? "justify-end" : "justify-start"
-                  }`}
-                >
-                  <div
-                    className={`max-w-[80%] ${
-                      message.sender === "user" ? "order-2" : "order-1"
-                    }`}
-                  >
-                    <div
-                      className={`px-4 py-2 rounded-2xl ${
-                        message.sender === "user"
-                          ? "bg-black text-white rounded-br-md"
-                          : "bg-white text-gray-900 rounded-bl-md border border-gray-200"
-                      }`}
+            {/* Form or Messages */}
+            <div
+              ref={scrollContainerRef}
+              className="flex-1 overflow-y-auto"
+              style={{ minHeight: 0 }}
+              onWheel={handleWheel}
+            >
+              <div className="p-4 space-y-4 bg-gray-50">
+                {showForm ? (
+                  // User Information Form
+                  <div className="space-y-4">
+                    <div className="text-center mb-4">
+                      <h4 className="text-lg font-semibold text-gray-900 mb-2">
+                        Welcome to Ritzy!
+                      </h4>
+                      <p className="text-sm text-gray-600">
+                        Please provide your information to get started
+                      </p>
+                    </div>
+
+                    <form
+                      id="contact"
+                      onSubmit={handleFormSubmit}
+                      className="space-y-3 overflow-y-auto"
                     >
-                      <p className="text-sm">{message.text}</p>
-                    </div>
-                    <p className="text-xs text-gray-500 mt-1 px-2">
-                      {message.timestamp}
-                    </p>
+                      <div>
+                        <label
+                          htmlFor="name"
+                          className="block text-sm font-medium text-gray-700 mb-1"
+                        >
+                          Name *
+                        </label>
+                        <input
+                          type="text"
+                          id="name"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleFormChange}
+                          required
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+                          placeholder="Enter your name"
+                        />
+                      </div>
+
+                      <div>
+                        <label
+                          htmlFor="email"
+                          className="block text-sm font-medium text-gray-700 mb-1"
+                        >
+                          Email *
+                        </label>
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleFormChange}
+                          required
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+                          placeholder="Enter your email"
+                        />
+                      </div>
+
+                      <div>
+                        <label
+                          htmlFor="message"
+                          className="block text-sm font-medium text-gray-700 mb-1"
+                        >
+                          Message
+                        </label>
+                        <textarea
+                          id="message"
+                          name="message"
+                          value={formData.message}
+                          onChange={handleFormChange}
+                          rows="3"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent resize-none"
+                          placeholder="Tell us how we can help you..."
+                        />
+                      </div>
+
+                      <button
+                        type="submit"
+                        className="w-full bg-black text-white py-2 px-4 rounded-lg hover:bg-gray-800 transition-colors font-medium"
+                      >
+                        Start Chat
+                      </button>
+                    </form>
                   </div>
-                </div>
-              ))}
-
-              {isTyping && (
-                <div className="flex justify-start">
-                  <div className="bg-white text-gray-900 rounded-2xl rounded-bl-md border border-gray-200 px-4 py-2">
-                    <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse"></div>
+                ) : (
+                  // Chat Messages
+                  <>
+                    {messages.map((message) => (
                       <div
-                        className="w-2 h-2 bg-gray-400 rounded-full animate-pulse"
-                        style={{ animationDelay: "0.2s" }}
-                      ></div>
-                      <div
-                        className="w-2 h-2 bg-gray-400 rounded-full animate-pulse"
-                        style={{ animationDelay: "0.4s" }}
-                      ></div>
-                    </div>
-                  </div>
-                </div>
-              )}
+                        key={message.id}
+                        className={`flex ${
+                          message.sender === "user"
+                            ? "justify-end"
+                            : "justify-start"
+                        }`}
+                      >
+                        <div
+                          className={`max-w-[80%] ${
+                            message.sender === "user" ? "order-2" : "order-1"
+                          }`}
+                        >
+                          <div
+                            className={`px-4 py-2 rounded-2xl ${
+                              message.sender === "user"
+                                ? "bg-black text-white rounded-br-md"
+                                : "bg-white text-gray-900 rounded-bl-md border border-gray-200"
+                            }`}
+                          >
+                            <p className="text-sm">{message.text}</p>
+                          </div>
+                          <p className="text-xs text-gray-500 mt-1 px-2">
+                            {message.timestamp}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
 
-              {chatEnded && (
-                <div className="text-center py-4">
-                  <p className="text-gray-500 text-sm mb-4">
-                    Chat ended due to inactivity
-                  </p>
-                  <button
-                    onClick={startNewConversation}
-                    className="bg-black text-white px-6 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors"
-                  >
-                    Start new conversation
-                  </button>
-                </div>
-              )}
+                    {isTyping && (
+                      <div className="flex justify-start">
+                        <div className="bg-white text-gray-900 rounded-2xl rounded-bl-md border border-gray-200 px-4 py-2">
+                          <div className="flex space-x-1">
+                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse"></div>
+                            <div
+                              className="w-2 h-2 bg-gray-400 rounded-full animate-pulse"
+                              style={{ animationDelay: "0.2s" }}
+                            ></div>
+                            <div
+                              className="w-2 h-2 bg-gray-400 rounded-full animate-pulse"
+                              style={{ animationDelay: "0.4s" }}
+                            ></div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
 
-              <div ref={messagesEndRef} />
+                    {chatEnded && (
+                      <div className="text-center py-4">
+                        <p className="text-gray-500 text-sm mb-4">
+                          Chat ended due to inactivity
+                        </p>
+                        <button
+                          onClick={startNewConversation}
+                          className="bg-black text-white px-6 py-2 rounded-full text-sm hover:bg-gray-800 transition-colors"
+                        >
+                          Start new conversation
+                        </button>
+                      </div>
+                    )}
+
+                    <div ref={messagesEndRef} />
+                  </>
+                )}
+              </div>
             </div>
 
-            {/* Input */}
-            {!chatEnded && (
+            {/* Input - Only show if not showing form and chat hasn't ended */}
+            {!showForm && !chatEnded && (
               <div className="p-4 border-t border-gray-100 bg-white">
                 <div className="flex space-x-2">
                   <input
