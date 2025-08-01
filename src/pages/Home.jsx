@@ -90,7 +90,7 @@ const Home = () => {
                   : "opacity-0 -translate-x-8"
               }`}
             >
-              <p className="text-gray-200 text-sm md:text-sm leading-relaxed max-w-lg">
+              <p className="text-gray-200 text-sm md:text-sm max-w-lg leading-tight">
                 Discover how easy life becomes when your home listens to you.
               </p>
             </div>
