@@ -4,6 +4,7 @@ import section1Video from "../assets/home/section1.mp4";
 import section1PhoneVideo from "../assets/home/section1_phone.mp4";
 import { CalloutPointer } from "../components/CalloutPointer";
 import Layout from "./Layout";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [videoEnded, setVideoEnded] = useState(false);
@@ -96,6 +97,11 @@ const Home = () => {
                 solutions for homes and businesses.
               </p>
             </div>
+            <Link to={"/contact"} className="block md:hidden">
+              <button className=" bg-gradient-to-tr from-[#FF6735] to-[#993E20] px-4 py-2 text-sm rounded-md text-white font-maxima-nouva ">
+                Get free consultation
+              </button>
+            </Link>
           </div>
         </div>
       </section>

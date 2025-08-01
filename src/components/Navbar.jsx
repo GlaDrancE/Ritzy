@@ -166,7 +166,7 @@ export default function Navbar({ home = false, ...props }) {
           >
             <img src={logo} className="w-12 h-12" alt="" />
           </Link>
-          <Link to={"/contact"}>
+          <Link to={"/contact"} className="hidden md:block">
             <button className=" bg-gradient-to-tr from-[#FF6735] to-[#993E20] px-4 py-2 text-sm rounded-md text-white font-maxima-nouva ">
               Get free consultation
             </button>
