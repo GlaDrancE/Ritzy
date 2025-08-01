@@ -64,7 +64,7 @@ const Home = () => {
                   : "opacity-0 -translate-x-8"
               }`}
             >
-              <p className="text-white text-sm md:text-base font-medium tracking-wide">
+              <p className="text-white text-sm md:text-sm font-medium tracking-wide">
                 Smart Home & Office Automation Solutions
               </p>
             </div>
@@ -77,7 +77,7 @@ const Home = () => {
                   : "opacity-0 -translate-x-8"
               }`}
             >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight font-maxima-nouva">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight tracking-widest font-maxima-nouva">
                 Where Luxury Meets Intelligent Living.
               </h1>
             </div>
@@ -90,7 +90,7 @@ const Home = () => {
                   : "opacity-0 -translate-x-8"
               }`}
             >
-              <p className="text-gray-200 text-sm md:text-base leading-relaxed max-w-lg">
+              <p className="text-gray-200 text-sm md:text-sm leading-relaxed max-w-lg">
                 Discover how easy life becomes when your home listens to you.
               </p>
             </div>
