@@ -91,10 +91,7 @@ const Home = () => {
               }`}
             >
               <p className="text-gray-200 text-sm md:text-base leading-relaxed max-w-lg">
-                Discover seamless comfort, security, and entertainment with
-                Ritzy Lifestyle&apos;s cutting-edge automation systems. Based in
-                Hebbal, Bangalore, we create personalized, future-proof
-                solutions for homes and businesses.
+                Discover how easy life becomes when your home listens to you.
               </p>
             </div>
             <Link to={"/contact"} className="block md:hidden">
