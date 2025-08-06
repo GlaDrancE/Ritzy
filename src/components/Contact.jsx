@@ -578,8 +578,8 @@ export function Contact({ onLoad }) {
         <Html position={[0, 0.2, -1.5]} transform distanceFactor={1}>
           <div id="telephone-number">
             <h1 className="text-3xl font-sketch italic">
-              <a href="tel:+919049616278" className="text-nowrap">
-                +91-9049616278
+              <a href="tel:+917899583046" className="text-nowrap">
+                +91-7899583046
               </a>
             </h1>
           </div>

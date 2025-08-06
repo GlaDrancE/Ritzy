@@ -53,17 +53,17 @@ const AboutTeam = () => {
                 </div>
                 <div className="w-full md:p-8 md:px-8 px-4 pb-12 md:text-xl font-maxima-nouva">
                   <AnimateText
-                    text={`Our team, led by Deepa Jayaraman and supported by key member Anil, is dedicated to delivering world-class automation solutions. From the initial consultation to ongoing support, we work closely with our clients to ensure their homes are future-ready. Together, we bring expertise, dedication, and a passion for pushing the boundaries of smart home technology.`}
+                    text={`Our team, led by Deepa Jayaraman a is dedicated to delivering world-class automation solutions. From the initial consultation to ongoing support, we work closely with our clients to ensure their homes are future-ready. Together, we bring expertise, dedication, and a passion for pushing the boundaries of smart home technology.`}
                     containerRef={containerRef}
                     start={"bottom bottom"}
                     end={"bottom 50%"}
                   />
                 </div>
-                <div className="w-full relative px-2 h-full flex items-center">
-                  <div className="w-0 absolute -left-20 top-[30%]">
-                    <h1 className="pr-4 text-nowrap text-5xl font-uber-move font-bold">
-                      <AnimateText
-                        text={"Anil"}
+                {/* <div className="w-full relative px-2 h-full flex items-center">
+                    <div className="w-0 absolute -left-20 top-[30%]">
+                      <h1 className="pr-4 text-nowrap text-5xl font-uber-move font-bold">
+                        <AnimateText
+                          text={"Anil"}
                         containerRef={containerRef}
                         end={"bottom 50%"}
                       />
@@ -83,7 +83,7 @@ const AboutTeam = () => {
                       alt=""
                     />
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
