@@ -76,16 +76,16 @@ export const Services = () => {
     <Layout>
       <div className="animated-gradient-bg" id="services">
         <Navbar />
-        <div className="w-full min-h-screen overflow-hidden secondary-bg">
-          <div className="flex flex-col h-full overflow-hidden min-h-[calc(100vh-7rem)] md:min-h-full">
+        <div className="w-full  overflow-hidden secondary-bg">
+          <div className="flex flex-col h-full overflow-hidden  md:min-h-full">
             {services.map((service) => (
               <div
                 key={service.id}
                 className={`group flex-1 min-h-[150px] md:min-h-[200px] relative transition-all duration-700 ease-out cursor-pointer overflow-hidden 
-                hover:flex-[4] hover:min-h-[350px] md:hover:min-h-[400px] 
+                hover:flex-[4]] md:hover:min-h-[400px] 
                 ${
                   hoveredSection === service.id
-                    ? "flex-[4] min-h-[350px] md:min-h-[400px]"
+                    ? "flex-[4] min-h-[150px] md:min-h-[400px]"
                     : ""
                 }`}
                 style={{
@@ -100,11 +100,11 @@ export const Services = () => {
                 <div className="absolute inset-0 flex items-end justify-center transition-all duration-700 ">
                   <div className=" text-white z-10 p-4 md:p-8 w-full">
                     <h2
-                      className={`text-5xl md:text-4xl  mb-4 transition-all duration-700 whitespace-nowrap font-maxima-nouva-thin
-                      group-hover:text-4xl md:group-hover:text-5xl
+                      className={`text-3xl md:text-4xl  mb-4 transition-all duration-700 whitespace-nowrap font-maxima-nouva-thin
+                      md:group-hover:text-4xl
                       ${
                         hoveredSection === service.id
-                          ? "text-4xl md:text-5xl"
+                          ? "text-3xl md:text-5xl"
                           : ""
                       }`}
                       style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}

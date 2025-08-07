@@ -85,7 +85,7 @@ export const AboutHero = () => {
             id="about-hero-picture"
           >
             <h1
-              className="absolute top-[15%] left-1/2 -translate-x-1/2 -transalte-y-1/2 text-[10rem] text-nowrap font-serif font-bold text-[#151515]"
+              className="absolute top-[35%] md:top-[15%] left-1/2 -translate-x-1/2 -transalte-y-1/2 text-[5rem] md:text-[10rem] text-nowrap font-serif font-bold text-[#151515]"
               id="hero-text"
             >
               About <span className="relative z-40"> Us</span>
