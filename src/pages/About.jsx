@@ -92,14 +92,9 @@ function AboutPage() {
 export default function About() {
   return (
     <Layout>
-      <Navbar
-        style={{
-          position: "absolute",
-          zIndex: "9999",
-          color: "black",
-          background: "linear-gradient(180deg, #bababa, transparent)",
-        }}
-      />
+      <div className="absolute inset-0 z-[999] h-fit">
+        <Navbar className="morph-glass !backdrop-blur-0 !py-6 sticky top-0 border-b-2 border-[#b0b0b0]" />
+      </div>
       <AboutPage />
     </Layout>
   );

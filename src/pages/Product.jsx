@@ -22,8 +22,9 @@ export default function Product() {
 
   return (
     <Layout>
-      <Navbar />
-
+      <div className="absolute inset-0 z-[999] h-fit">
+        <Navbar className="morph-glass !backdrop-blur-0 !py-6 sticky top-0 border-b-2 border-[#b0b0b0]" />
+      </div>
       {/* Hero Section */}
       <div className="product-hero-section relative min-h-screen bg-black text-white overflow-hidden">
         {/* Background with fade lines and transparent text */}
@@ -183,7 +184,6 @@ export default function Product() {
           </div>
         </div>
       </div>
-
       {/* Product Details Section */}
       <div className="product-details-section bg-gray-50 py-16 lg:py-24 px-12">
         <div className="container mx-auto px-4">
@@ -365,7 +365,6 @@ export default function Product() {
           </div>
         </div>
       </div>
-
       {/* Brand Details Section */}
       <div className="brand-details-section bg-white py-16 lg:py-24">
         <div className="container mx-auto px-4">
@@ -864,7 +863,6 @@ export default function Product() {
           </div>
         </div>
       </div>
-
       <Footer />
     </Layout>
   );

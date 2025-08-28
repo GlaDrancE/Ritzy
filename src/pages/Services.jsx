@@ -75,7 +75,9 @@ export const Services = () => {
   return (
     <Layout>
       <div className="animated-gradient-bg" id="services">
-        <Navbar />
+        <div className="absolute inset-0 z-[999] h-fit">
+          <Navbar className="morph-glass !backdrop-blur-0 !py-6 sticky top-0 border-b-2 border-[#b0b0b0]" />
+        </div>
         <div className="w-full  overflow-hidden secondary-bg">
           <div className="flex flex-col h-full overflow-hidden  md:min-h-full">
             {services.map((service) => (

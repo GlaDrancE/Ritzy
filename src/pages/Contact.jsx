@@ -29,14 +29,7 @@ function ContactPage() {
       className="animated-gradient-bg text-white"
       onClick={handleContactClick}
     >
-      <Navbar
-        style={
-          {
-            // background: "linear-gradient(180deg, #bababa, transparent)",
-            // filter: "invert(1)",
-          }
-        }
-      />
+      <Navbar />
       <div className="w-[98vw] h-auto md:h-screen md:overflow-hidden  text-white">
         <div
           className="md:grid block h-full px-4 md:mt-0 mt-24"

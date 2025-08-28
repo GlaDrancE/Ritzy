@@ -50,6 +50,7 @@ export default function Layout({ children }) {
   return (
     <div className="animated-gradient-bg">
       {/* {isLoading && <Preloader />} */}
+
       {children}
       {/* Chatbot */}
       <Chatbot />

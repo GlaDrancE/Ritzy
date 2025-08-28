@@ -349,7 +349,9 @@ const Products = () => {
   return (
     <Layout>
       <div className="animated-gradient-bg" id="products">
-        <Navbar />
+        <div className="absolute inset-0 z-[999] h-fit">
+          <Navbar className="morph-glass !backdrop-blur-0 !py-6 sticky top-0 border-b-2 border-[#b0b0b0]" />
+        </div>
         <div className="w-full min-h-screen text-white pt-24 md:pt-32 px-4 md:px-8">
           {/* Header Section */}
           <div className="mb-12 md:mb-16">
